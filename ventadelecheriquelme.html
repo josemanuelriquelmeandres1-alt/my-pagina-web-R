@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lácteos de la Sierra - Leche Fresca en Tambo, Huancayo, Junín</title>
+    <meta name="description" content="Lácteos de la Sierra, tu proveedor de confianza en Tambo, Huancayo, Junín. Ofrecemos leche fresca y productos lácteos directos de la granja con los más altos estándares de calidad. ¡Contáctanos y haz tu pedido!">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Montserrat:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #38a169; /* Verde para frescura */
+            --secondary-color: #f1c40f; /* Amarillo para energía */
+            --text-color: #333;
+            --bg-light: #f9f9f9;
+            --bg-white: #fff;
+            --border-radius: 10px;
+            --box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-light);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 25px;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: var(--bg-white);
+            padding: 1.5rem 0;
+            text-align: center;
+            box-shadow: var(--box-shadow);
+        }
+
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+            background-color: var(--bg-white);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            margin-right: 20px;
+        }
+
+        .logo img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        header h1 {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            font-size: 3rem;
+            font-weight: 700;
+        }
+
+        header p {
+            margin: 0.5rem 0 0;
+            font-size: 1.2rem;
+            font-weight: 500;
+        }
+
+        .hero {
+            /* Fondo de leche detallado */
+            background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), url('https://images.unsplash.com/photo-1628087271428-1b777a80b0ef?q=80&w=2071&auto=format&fit=crop') no-repeat center center/cover;
+            text-align: center;
+            padding: 6rem 0;
+        }
+
+        .hero h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 3.5rem;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            max-width: 800px;
+            margin: 0 auto 3rem;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: var(--bg-white);
+            padding: 18px 35px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn:hover {
+            background-color: #2e8b57;
+            transform: translateY(-3px);
+        }
+
+        .section {
+            padding: 5rem 0;
+        }
+
+        .section h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--primary-color);
+            position: relative;
+        }
+
+        .section h3::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background-color: var(--secondary-color);
+            margin: 10px auto 0;
+            border-radius: 2px;
+        }
+
+        .about-text {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            font-size: 1.1rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .grid-item {
+            background-color: var(--bg-white);
+            padding: 2.5rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .grid-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .grid-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: var(--border-radius);
+            margin-bottom: 1.5rem;
+        }
+        
+        .grid-item h4 {
+            font-family: 'Montserrat', sans-serif;
+            margin-top: 0;
+            color: var(--primary-color);
+        }
+
+        .contact-form {
+            background-color: var(--bg-white);
+            padding: 3rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+
+        .contact-form label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+
+        .contact-form input,
+        .contact-form select,
+        .contact-form textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 1.5rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .contact-form input:focus,
+        .contact-form select:focus,
+        .contact-form textarea:focus {
+            border-color: var(--primary-color);
+            outline: none;
+        }
+
+        .contact-form button {
+            background-color: var(--primary-color);
+            color: var(--bg-white);
+            border: none;
+            padding: 15px 25px;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s ease;
+        }
+
+        .contact-form button:hover {
+            background-color: #2e8b57;
+        }
+
+        footer {
+            background-color: #2c3e50;
+            color: var(--bg-white);
+            text-align: center;
+            padding: 3rem 0;
+            margin-top: 5rem;
+        }
+
+        footer .contact-info {
+            margin-bottom: 1.5rem;
+        }
+
+        footer .contact-info a {
+            color: var(--bg-white);
+            text-decoration: none;
+            font-weight: bold;
+            margin: 0 15px;
+            transition: color 0.3s ease;
+        }
+
+        footer .contact-info a:hover {
+            color: var(--secondary-color);
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2.2rem;
+            }
+            .hero h2 {
+                font-size: 2.5rem;
+            }
+            .hero p {
+                font-size: 1.1rem;
+            }
+            .section {
+                padding: 3rem 0;
+            }
+            .section h3 {
+                font-size: 2rem;
+            }
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <div class="logo-container">
+                <div class="logo">
+                    <img src="https://via.placeholder.com/150.png?text=Logo+Lácteos" alt="Logotipo de Lácteos de la Sierra">
+                </div>
+                <h1>Lácteos de la Sierra</h1>
+            </div>
+            <p>Leche fresca, directa de la granja, en Tambo, Huancayo, Junín</p>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h2>¡Leche fresca, la mejor calidad!</h2>
+                <p>En Lácteos de la Sierra, te garantizamos frescura y calidad, sin intermediarios. ¡Somos tu socio de confianza!</p>
+                <a href="#contacto" class="btn">Haz tu Pedido Ahora</a>
+            </div>
+        </section>
+
+        <section class="section" id="nosotros">
+            <div class="container">
+                <h3>Sobre Nosotros</h3>
+                <div class="about-text">
+                    <p>En Lácteos de la Sierra, nuestra misión es ofrecer a la comunidad de Tambo, Huancayo, Junín, los mejores productos lácteos. Nos dedicamos a la crianza de ganado bajo los más estrictos estándares de calidad, asegurando que cada litro de leche sea puro y de excelente sabor. Con años de experiencia, nos hemos posicionado como el proveedor mayorista de confianza para distribuidores y negocios locales.</p>
+                    <p>Nuestro compromiso es la frescura, la honestidad y el crecimiento de nuestros clientes.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="productos">
+            <div class="container">
+                <h3>Nuestros Productos</h3>
+                <div class="grid">
+                    <div class="grid-item">
+                        <img src="https://via.placeholder.com/400x300.png?text=Leche+Fresca" alt="Leche fresca de Lácteos de la Sierra">
+                        <h4>Leche Fresca por Litro</h4>
+                        <p>Leche saludable y de la más alta calidad, lista para tu negocio. Ideales para distribuidores y restaurantes.</p>
+                    </div>
+                    <div class="grid-item">
+                        <img src="https://via.placeholder.com/400x300.png?text=Mantequilla+o+Queso" alt="Mantequilla o Queso de la sierra">
+                        <h4>Mantequilla y Queso Artesanal</h4>
+                        <p>Productos derivados de la leche, hechos de forma artesanal. Sabor y textura inigualables.</p>
+                    </div>
+                    <div class="grid-item">
+                        <img src="https://via.placeholder.com/400x300.png?text=Nuestras+Instalaciones" alt="Granja lechera de Lácteos de la Sierra">
+                        <h4>Atención Personalizada</h4>
+                        <p>Asesoramiento y soporte para que tu negocio tenga el suministro que necesita. ¡Precios mayoristas competitivos!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="contacto">
+            <div class="container">
+                <h3>Contáctanos y Haz tu Pedido</h3>
+                <div class="contact-form">
+                    <form action="https://formspree.io/f/mqazkndr" method="POST">
+                        <label for="name">Nombre Completo:</label>
+                        <input type="text" id="name" name="nombre" required>
+                        
+                        <label for="email">Correo Electrónico:</label>
+                        <input type="email" id="email" name="correo" required>
+                        
+                        <label for="phone">Teléfono / WhatsApp:</label>
+                        <input type="tel" id="phone" name="telefono" placeholder="968668075" required>
+                        
+                        <label for="type">Tipo de Cliente:</label>
+                        <select id="type" name="tipo_de_cliente" required>
+                            <option value="">Selecciona una opción</option>
+                            <option value="distribuidor">Distribuidor / Mayorista</option>
+                            <option value="restaurante">Restaurante / Negocio</option>
+                            <option value="consumidor">Consumidor Final</option>
+                        </select>
+
+                        <label for="message">Mensaje / Detalle del Pedido:</label>
+                        <textarea id="message" name="mensaje" rows="6" placeholder="Ej: Necesito 50 litros de leche para la próxima semana."></textarea>
+                        
+                        <button type="submit">Enviar Solicitud</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="contact-info">
+                <a href="tel:+51968668075">Teléfono: 968668075</a>
+                <a href="mailto:josemanuelriquelmeandres1@gmail.com">Email: josemanuelriquelmeandres1@gmail.com</a>
+                <p>Ubicación: Tambo, Huancayo, Junín, Perú</p>
+            </div>
+            <p>&copy; 2024 Lácteos de la Sierra. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
