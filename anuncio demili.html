@@ -1,0 +1,218 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detalles Personalizados 💝</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0; padding: 0;
+      background: #ffeef5;
+      color: #333;
+    }
+    header {
+      text-align: center;
+      background: #ff4d6d;
+      color: #fff;
+      padding: 20px;
+      position: relative;
+    }
+    header img {
+      width: 80px;
+      border-radius: 50%;
+      margin-bottom: 10px;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 1.6rem;
+    }
+    section {
+      padding: 20px;
+    }
+    h2 {
+      color: #ff4d6d;
+    }
+    .precios {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    .precio {
+      background: #fff;
+      padding: 15px;
+      border-radius: 12px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .precio strong {
+      color: #ff4d6d;
+    }
+    form {
+      background: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    form label {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+    form input, form select, form textarea {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+    form button {
+      margin-top: 15px;
+      background: #ff4d6d;
+      color: #fff;
+      border: none;
+      padding: 12px;
+      width: 100%;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    form button:hover {
+      background: #e63e5a;
+    }
+    .stars {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+    }
+    .stars input { display: none; }
+    .stars label {
+      font-size: 2rem;
+      color: #ccc;
+      cursor: pointer;
+    }
+    .stars input:checked ~ label,
+    .stars label:hover,
+    .stars label:hover ~ label {
+      color: #ffcc00;
+    }
+    /* Animación corazones/flores */
+    .floating {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      overflow: hidden;
+      z-index: -1;
+    }
+    .floating span {
+      position: absolute;
+      display: block;
+      width: 20px; height: 20px;
+      background: pink;
+      opacity: 0.7;
+      animation: float 10s linear infinite;
+      border-radius: 50%;
+    }
+    .floating span:nth-child(odd) { background: #ff4d6d; }
+    @keyframes float {
+      0% { transform: translateY(100vh) scale(0.5); }
+      100% { transform: translateY(-10vh) scale(1); }
+    }
+    @media (max-width: 600px) {
+      header h1 { font-size: 1.2rem; }
+      .precio { font-size: 0.9rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="floating">
+    <span style="left:10%; animation-delay:0s;"></span>
+    <span style="left:30%; animation-delay:2s;"></span>
+    <span style="left:50%; animation-delay:4s;"></span>
+    <span style="left:70%; animation-delay:6s;"></span>
+    <span style="left:90%; animation-delay:8s;"></span>
+  </div>
+
+  <header>
+    <img src="https://cdn-icons-png.flaticon.com/512/833/833472.png" alt="Logo Detalles">
+    <h1>Detalles Personalizados 💝</h1>
+    <p>¡Hacemos de cada ocasión un momento especial!</p>
+  </header>
+
+  <section>
+    <h2>Nuestros detalles</h2>
+    <div class="precios">
+      <div class="precio">
+        <strong>S/5:</strong> Detalle simple pero con mucho cariño.
+      </div>
+      <div class="precio">
+        <strong>S/10:</strong> Detalle personalizado único con corazones o flores flotantes.
+      </div>
+      <div class="precio">
+        <strong>S/20:</strong> Detalle premium con nombre personalizado y acabados especiales.
+      </div>
+    </div>
+    <p><strong>🎉 También hacemos:</strong> cumpleaños, aniversarios, matrimonios, pedidas de novios y mucho más.</p>
+  </section>
+
+  <section>
+    <h2>Reserva tu pedido</h2>
+    <form id="pedidoForm">
+      <label>Nombre completo:</label>
+      <input type="text" id="nombre" pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ ]+" required placeholder="Ejemplo: Juan Pérez">
+
+      <label>Número de celular:</label>
+      <input type="tel" id="telefono" pattern="[0-9]{9}" required placeholder="Ejemplo: 935389713">
+
+      <label>Tipo de detalle:</label>
+      <select id="detalle" required>
+        <option value="">-- Seleccione --</option>
+        <option value="S/5 Detalle Simple">S/5 Detalle Simple</option>
+        <option value="S/10 Detalle Personalizado">S/10 Detalle Personalizado</option>
+        <option value="S/20 Detalle Premium">S/20 Detalle Premium</option>
+      </select>
+
+      <label>Método de contacto:</label>
+      <select id="metodo" required>
+        <option value="">-- Seleccione --</option>
+        <option value="Facebook">Facebook</option>
+        <option value="WhatsApp">WhatsApp</option>
+        <option value="Messenger">Messenger</option>
+        <option value="Instagram">Instagram</option>
+        <option value="Otro">Otro</option>
+      </select>
+
+      <label>Mensaje adicional:</label>
+      <textarea id="mensaje" placeholder="Ejemplo: Quiero que diga 'Feliz aniversario' con flores rojas"></textarea>
+
+      <button type="submit">Reservar por WhatsApp</button>
+    </form>
+  </section>
+
+  <section>
+    <h2>Califícanos ⭐</h2>
+    <div class="stars">
+      <input type="radio" id="star5" name="rating"><label for="star5">★</label>
+      <input type="radio" id="star4" name="rating"><label for="star4">★</label>
+      <input type="radio" id="star3" name="rating"><label for="star3">★</label>
+      <input type="radio" id="star2" name="rating"><label for="star2">★</label>
+      <input type="radio" id="star1" name="rating"><label for="star1">★</label>
+    </div>
+  </section>
+
+  <script>
+    document.getElementById("pedidoForm").addEventListener("submit", function(e){
+      e.preventDefault();
+      const nombre = document.getElementById("nombre").value;
+      const telefono = document.getElementById("telefono").value;
+      const detalle = document.getElementById("detalle").value;
+      const metodo = document.getElementById("metodo").value;
+      const mensaje = document.getElementById("mensaje").value;
+
+      const texto = `Hola, soy ${nombre}.%0AMi número es: ${telefono}.%0AQuiero: ${detalle}.%0AContacto por: ${metodo}.%0ADetalles: ${mensaje}`;
+      window.open(`https://wa.me/935389713?text=${texto}`, "_blank");
+    });
+  </script>
+</body>
+</html>
+
