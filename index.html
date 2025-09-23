@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Venta de Lácteos Frescos de Riquelme</title>
+    <style>
+        /* --- Estilos CSS de la web de lácteos --- */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            background-image: linear-gradient(to bottom right, #e8f5e9, #c8e6c9);
+            color: #333;
+        }
+
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 1.5rem 0;
+            text-align: center;
+        }
+
+        nav {
+            background-color: #333;
+            color: white;
+            padding: 0.5rem 0;
+            text-align: center;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            display: inline-block;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: auto;
+            overflow: hidden;
+            padding: 2rem 0;
+        }
+
+        .section {
+            background-color: white;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #4CAF50;
+            border-bottom: 2px solid #4CAF50;
+            padding-bottom: 0.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .product-table {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .product-category {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .category-header {
+            background-color: #f9f9f9;
+            padding: 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: background-color 0.3s ease;
+        }
+        
+        .category-header:hover {
+            background-color: #eee;
+        }
+
+        .category-header img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+
+        .category-header h3 {
+            margin: 0;
+            font-size: 1.5rem;
+            color: #333;
+        }
+
+        .product-variants {
+            display: none;
+            padding: 1rem;
+            border-top: 1px solid #ddd;
+            background-color: #fff;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .product-variant-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: box-shadow 0.3s ease;
+            text-align: center;
+        }
+
+        .product-variant-item:hover {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-variant-item img {
+            width: 100%;
+            height: auto;
+            max-width: 150px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+
+        .variant-info {
+            flex-grow: 1;
+        }
+
+        .variant-info h4 {
+            margin: 0;
+            font-size: 1.1rem;
+        }
+        
+        .variant-info p {
+            margin: 0.2rem 0 0;
+            color: #555;
+            font-size: 0.9rem;
+        }
+
+        form {
+            display: grid;
+            gap: 1rem;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        
+        input::placeholder, textarea::placeholder {
+            color: #999;
+            font-style: italic;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 1rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.7);
+            padding-top: 60px;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            margin: 5% auto;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            width: 80%;
+            max-width: 600px;
+            position: relative;
+            text-align: center;
+        }
+
+        .close-button {
+            color: #aaa;
+            position: absolute;
+            top: 10px;
+            right: 25px;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close-button:hover,
+        .close-button:focus {
+            color: #000;
+            text-decoration: none;
+        }
+
+        .modal-content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .result-message {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 4px;
+            background-color: #e8f5e9;
+            color: #2e7d32;
+            border: 1px solid #c8e6c9;
+            text-align: left;
+            display: none;
+        }
+        .error-message {
+            color: #d32f2f;
+            background-color: #ffebee;
+            border: 1px solid #ef9a9a;
+            padding: 0.5rem;
+            border-radius: 4px;
+            display: none;
+            margin-top: 0.5rem;
+        }
+
+        .rating {
+            display: inline-block;
+        }
+
+        .rating input {
+            display: none;
+        }
+
+        .rating label {
+            font-size: 2.5em;
+            color: #ccc;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .rating label:hover,
+        .rating label:hover ~ label,
+        .rating input:checked ~ label {
+            color: #FFD700;
+        }
+
+        .thank-you-message {
+            margin-top: 15px;
+            font-size: 1.2em;
+            color: #4CAF50;
+            font-weight: bold;
+            display: none;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            margin-top: 1.5rem;
+        }
+
+        .social-links a {
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            padding: 0.8rem 1.5rem;
+            border-radius: 5px;
+            transition: transform 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .social-links a:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .whatsapp { background-color: #25D366; }
+        .facebook { background-color: #1877F2; }
+        .tiktok { background-color: #000; }
+        .instagram { background-color: #E4405F; }
+        .messenger { background-color: #0078FF; }
+
+        footer {
+            background-color: #222;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 2rem;
+        }
+
+        footer p {
+            margin: 0.5rem 0;
+        }
+
+        footer .social-links a {
+            color: white;
+            padding: 0.5rem 1rem;
+            margin: 0 0.5rem;
+            background-color: transparent;
+            border: 1px solid white;
+        }
+
+        footer .social-links a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .business-contact {
+            font-family: 'Comic Sans MS', 'Arial', cursive;
+        }
+        
+        .business-contact h2 {
+            color: #ff6347;
+            border-bottom: 2px dashed #ff6347;
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+
+        .business-contact input,
+        .business-contact textarea,
+        .business-contact select {
+            font-family: 'Comic Sans MS', 'Arial', cursive;
+        }
+
+        .business-contact label {
+            color: #ff6347;
+        }
+
+        .business-contact button {
+            border-radius: 25px;
+        }
+
+        .business-contact .confirmation-message {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+            border: 1px solid #c8e6c9;
+            display: none;
+        }
+        
+        .customer-service h2 {
+            color: #1E90FF;
+            border-bottom: 2px solid #1E90FF;
+        }
+
+        .customer-service label {
+            color: #1E90FF;
+        }
+
+        #product-intro {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Venta de Lácteos Frescos de Riquelme</h1>
+        <p>¡Directo de la granja a tu mesa!</p>
+    </header>
+
+    <nav>
+        <a href="#productos">Productos</a>
+        <a href="#pedidos">Pedidos</a>
+        <a href="#consultas">Consultas</a>
+        <a href="#anuncios">Anuncios</a>
+        <a href="#promociones">Promociones</a>
+        <a href="#contactos">Contactos</a>
+        <a href="#contacto-empresarial">Contacto Empresarial</a>
+        <a href="#atencion-cliente">Atención al Cliente</a>
+    </nav>
+
+    <div class="container">
+        <div id="productos" class="section">
+            <h2>Nuestros Productos</h2>
+            <div id="productGrid" class="product-table"></div>
+            
+            <hr style="margin: 2rem 0; border: 0; border-top: 1px solid #ccc;">
+            
+            <h3>Agregar un Nuevo Producto</h3>
+            <form id="newProductForm" autocomplete="off">
+                <label for="newProductName">Nombre del Producto Principal:</label>
+                <input type="text" id="newProductName" required>
+                <label for="newProductDescription">Descripción del Producto Principal:</label>
+                <textarea id="newProductDescription" rows="3" required></textarea>
+                <button type="submit">Crear Producto Principal</button>
+            </form>
+
+            <hr style="margin: 2rem 0; border: 0; border-top: 1px solid #ccc;">
+
+            <h3>Agregar una Variedad a un Producto Existente</h3>
+            <form id="newVariantForm" autocomplete="off">
+                <label for="parentProduct">Producto Principal:</label>
+                <select id="parentProduct" required></select>
+                
+                <label for="variantName">Nombre de la Variedad:</label>
+                <input type="text" id="variantName" required>
+                
+                <label for="variantPrice">Precio de la Variedad:</label>
+                <input type="text" id="variantPrice" required>
+                
+                <label for="variantImage">Imagen de la Variedad:</label>
+                <input type="file" id="variantImage" accept="image/*" required>
+                <div id="variantImagePreview" style="margin-top: 1rem; text-align: center;"></div>
+
+                <button type="submit">Agregar Variedad</button>
+            </form>
+        </div>
+
+        <div id="productModal" class="modal">
+            <div class="modal-content">
+                <span class="close-button">&times;</span>
+                <img id="modalProductImage" src="" alt="Imagen del producto">
+                <h3 id="modalProductName"></h3>
+                <p id="modalProductPrice"></p>
+                <p id="modalProductDescription"></p>
+            </div>
+        </div>
+
+        <div id="pedidos" class="section">
+            <h2>Haz tu Pedido</h2>
+            <form id="pedidoForm" action="https://formspree.io/f/TU_CODIGO_AQUI" method="POST" autocomplete="off">
+                <input type="hidden" name="_replyto" value="josemanuelriquelmeandres1@gmail.com">
+                <input type="hidden" name="_subject" value="Nuevo Pedido Web">
+                <label for="nombrePedido">Nombre Completo:</label>
+                <input type="text" id="nombrePedido" name="nombre" placeholder="Ej: Juan Pérez" required>
+                <div id="nameError" class="error-message"></div>
+                <label for="productoPedido">Producto:</label>
+                <select id="productoPedido" name="producto" required>
+                    <option value="">Selecciona un producto</option>
+                </select>
+                <label for="cantidadPedido">Cantidad:</label>
+                <input type="number" id="cantidadPedido" name="cantidad" min="1" required>
+                <label for="direccionPedido">Dirección de Envío:</label>
+                <textarea id="direccionPedido" name="direccion" rows="3" placeholder="Ej: Av. Los Girasoles 123, Urb. San Carlos" required></textarea>
+                <label for="telefonoPedido">Teléfono de Contacto:</label>
+                <input type="tel" id="telefonoPedido" name="telefono" placeholder="Ej: 987654321" pattern="[0-9]{9}" title="9 dígitos (ej. 912345678)" required>
+                <div id="telefonoPedidoError" class="error-message"></div>
+                <button type="submit">Enviar Pedido</button>
+            </form>
+            <div id="pedidoResult" class="result-message"></div>
+        </div>
+
+        <div id="consultas" class="section">
+            <h2>Envía tu Consulta o Comentario</h2>
+            <form id="consultaForm" action="https://formspree.io/f/TU_CODIGO_AQUI" method="POST" autocomplete="off">
+                <input type="hidden" name="_replyto" value="josemanuelriquelmeandres1@gmail.com">
+                <input type="hidden" name="_subject" value="Nueva Consulta/Comentario Web">
+                <label for="nombreConsulta">Nombre Completo:</label>
+                <input type="text" id="nombreConsulta" name="nombre" placeholder="Ej: Ana Gómez" required>
+                <div id="nombreConsultaError" class="error-message"></div>
+                <label for="emailConsulta">Correo Electrónico:</label>
+                <input type="email" id="emailConsulta" name="email" placeholder="ejemplo@correo.com" required>
+                <div id="emailConsultaError" class="error-message"></div>
+                <label for="tipoComentario">Tipo de Mensaje:</label>
+                <select id="tipoComentario" name="tipo_mensaje" required>
+                    <option value="">Selecciona una opción</option>
+                    <option value="Sugerencia">Sugerencia</option>
+                    <option value="Felicitación">Felicitación</option>
+                    <option value="Reclamo">Reclamo</option>
+                    <option value="Consulta">Consulta</option>
+                </select>
+                <label for="mensajeConsulta">Tu Mensaje:</label>
+                <textarea id="mensajeConsulta" name="mensaje" rows="3" placeholder="Ej: El queso de cabra estaba delicioso, ¿podrían considerar vender yogur griego?"></textarea>
+                <div id="wordCountMessage" style="font-size: 0.8rem; color: #777; text-align: right;"></div>
+                <label for="satisfactionLevel">Nivel de Satisfacción (1-10):</label>
+                <input type="number" id="satisfactionLevel" name="satisfaccion" min="1" max="10" required>
+                <label for="starRating">Calificación con Estrellas (1-3):</label>
+                <div class="rating">
+                    <input type="radio" id="star3" name="calificacion" value="3" required>
+                    <label for="star3" title="3 estrellas">&#9733;</label>
+                    <input type="radio" id="star2" name="calificacion" value="2" required>
+                    <label for="star2" title="2 estrellas">&#9733;</label>
+                    <input type="radio" id="star1" name="calificacion" value="1" required>
+                    <label for="star1" title="1 estrella">&#9733;</label>
+                </div>
+                <button type="submit">Enviar Consulta</button>
+            </form>
+            <div id="consultaResult" class="result-message"></div>
+        </div>
+        
+        <div id="anuncios" class="section">
+            <h2>Anuncios y Novedades</h2>
+            <div id="anunciosContent">
+                <h3>¡Nuevo producto en la tienda!</h3>
+                <p>Hemos añadido nuestra deliciosa leche en tarro. ¡Perfecta para tus postres y cafés!</p>
+            </div>
+            <h3>Cargar una Imagen de Anuncio</h3>
+            <p>Sube una foto de nuestros productos. La imagen se adecuará a un tamaño de 200px de ancho.</p>
+            <input type="file" id="imageUploader" accept="image/*">
+            <div id="imagePreview"></div>
+        </div>
+
+        <div id="promociones" class="section">
+            <h2>Promociones y Ofertas</h2>
+            <div class="offer-card">
+                <h3>¡Oferta de la Semana!</h3>
+                <p>2 litros de Leche Fresca + 1 kg de Queso Artesanal por solo <strong>S/. 30.00</strong></p>
+                <p>¡Aprovecha antes de que se acabe!</p>
+            </div>
+            <div id="promocionInfo" class="result-message" style="display:block; background-color: #fff3e0; color: #e65100; border-color: #ffe0b2;">
+                <h4>Detalles de la Promoción:</h4>
+                <p>Esta oferta te permite ahorrar un 15% sobre el precio regular. Promoción válida hasta el próximo domingo.</p>
+            </div>
+        </div>
+
+        <div id="contactos" class="section">
+            <h2>Contáctanos</h2>
+            <p><strong>Número de contacto:</strong> 968668075</p>
+            <p>Haz clic en los enlaces de abajo para contactarnos por WhatsApp o visitar nuestras redes sociales.</p>
+            <div class="social-links">
+                <a href="https://wa.me/51968668075" target="_blank" class="whatsapp">WhatsApp</a>
+                <a href="https://www.facebook.com/josemauel.riquelmeandres" target="_blank" class="facebook">Facebook</a>
+                <a href="https://www.tiktok.com/@josemauel.riquelmeandres" target="_blank" class="tiktok">TikTok</a>
+                <a href="https://www.instagram.com/josemauel.riquelmeandres" target="_blank" class="instagram">Instagram</a>
+                <a href="https://m.me/josemauel.riquelmeandres" target="_blank" class="messenger">Messenger</a>
+            </div>
+        </div>
+        
+        <div id="contacto-empresarial" class="section business-contact">
+            <h2>¡Hola! ¿Quieres hacer negocios?</h2>
+            <p>Conéctate con nosotros de forma fácil y rápida para propuestas, colaboraciones o consultas empresariales.</p>
+            
+            <form id="businessContactForm" action="https://formspree.io/f/TU_CODIGO_AQUI" method="POST" autocomplete="off">
+                <input type="hidden" name="_replyto" value="josemanuelriquelmeandres1@gmail.com">
+                <input type="hidden" name="_subject" value="Contacto Empresarial">
+                <div class="form-group">
+                    <label for="businessNombre">Tu Nombre Completo</label>
+                    <input type="text" id="businessNombre" name="nombre" placeholder="Ej: José Riquelme" required>
+                    <div id="businessNombreError" class="error-message"></div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="businessEmail">Correo Electrónico</label>
+                    <input type="email" id="businessEmail" name="email" placeholder="ejemplo@empresa.com" required>
+                    <div id="businessEmailError" class="error-message"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="businessTelefono">Número de Teléfono</label>
+                    <input type="tel" id="businessTelefono" name="telefono" placeholder="Ej: 987654321" pattern="[0-9]{9}" title="9 dígitos (ej. 912345678)" required>
+                    <div id="businessTelefonoError" class="error-message"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="businessAsunto">Asunto del Mensaje</label>
+                    <select id="businessAsunto" name="asunto" required>
+                        <option value="">Selecciona una opción</option>
+                        <option value="consulta">Consulta General</option>
+                        <option value="propuesta">Propuesta Empresarial</option>
+                        <option value="colaboracion">Colaboración</option>
+                        <option value="otro">Otro</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="businessMensaje">Cuéntanos tu Idea</label>
+                    <textarea id="businessMensaje" name="mensaje" rows="5" placeholder="Escribe tu mensaje aquí. Cuanto más detalles, mejor." required></textarea>
+                </div>
+                
+                <button type="submit">Enviar Mensaje</button>
+            </form>
+
+            <div id="businessConfirmation" class="result-message confirmation-message">
+                <p>¡Mensaje enviado con éxito! Nos pondremos en contacto contigo pronto.</p>
+            </div>
+        </div>
+        
+        <div id="atencion-cliente" class="section customer-service">
+            <h2>Atención al Cliente</h2>
+            <p>¿Tienes alguna duda o necesitas ayuda? ¡Estamos aquí para ti! Llena el formulario y te responderemos lo antes posible.</p>
+            
+            <form id="customerServiceForm" action="https://formspree.io/f/TU_CODIGO_AQUI" method="POST" autocomplete="off">
+                <input type="hidden" name="_replyto" value="josemanuelriquelmeandres1@gmail.com">
+                <input type="hidden" name="_subject" value="Atención al Cliente">
+                <div class="form-group">
+                    <label for="csNombre">Tu Nombre Completo:</label>
+                    <input type="text" id="csNombre" name="nombre" placeholder="Ej: Carlos Vega" required>
+                    <div id="csNombreError" class="error-message"></div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="csEmail">Correo Electrónico:</label>
+                    <input type="email" id="csEmail" name="email" placeholder="ejemplo@correo.com" required>
+                    <div id="csEmailError" class="error-message"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="csTelefono">Número de Teléfono:</label>
+                    <input type="tel" id="csTelefono" name="telefono" placeholder="Ej: 987654321" pattern="[0-9]{9}" title="9 dígitos (ej. 912345678)" required>
+                    <div id="csTelefonoError" class="error-message"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="csAsunto">Asunto del Mensaje:</label>
+                    <select id="csAsunto" name="asunto" required>
+                        <option value="">Selecciona una opción</option>
+                        <option value="Duda sobre un producto">Duda sobre un producto</option>
+                        <option value="Problema con mi pedido">Problema con mi pedido</option>
+                        <option value="Reclamo o queja">Reclamo o queja</option>
+                        <option value="Informacion sobre el delivery">Información sobre el delivery</option>
+                        <option value="Otro motivo">Otro motivo</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="csMensaje">Tu Mensaje:</label>
+                    <textarea id="csMensaje" name="mensaje" rows="5" placeholder="Ej: Tuve un problema con el pedido #1234. La botella de leche llegó con el empaque roto." required></textarea>
+                </div>
+                
+                <button type="submit">Enviar Mensaje</button>
+            </form>
+
+            <div id="customerServiceConfirmation" class="result-message">
+                <p>¡Gracias por contactarnos! Tu mensaje ha sido enviado.</p>
+            </div>
+        </div>
+
+    </div>
+    
+    <div id="thankYouSection" class="section" style="text-align: center;">
+        <p style="font-size: 1.5em; font-weight: bold; color: #4CAF50;">¿Qué tal fue tu experiencia?</p>
+        <p style="font-size: 1.2em;">¡Califica nuestros productos con estrellas!</p>
+        <div id="ratingStars" class="rating">
+            <input type="radio" id="star5" name="finalRating" value="5">
+            <label for="star5" title="5 estrellas">&#9733;</label>
+            <input type="radio" id="star4" name="finalRating" value="4">
+            <label for="star4" title="4 estrellas">&#9733;</label>
+            <input type="radio" id="star3" name="finalRating" value="3">
+            <label for="star3" title="3 estrellas">&#9733;</label>
+            <input type="radio" id="star2" name="finalRating" value="2">
+            <label for="star2" title="2 estrellas">&#9733;</label>
+            <input type="radio" id="star1" name="finalRating" value="1">
+            <label for="star1" title="1 estrella">&#9733;</label>
+        </div>
+        <div id="finalThankYouMessage" class="thank-you-message"></div>
+    </div>
+
+    <footer>
+        <p>Venta de Lácteos Frescos de Riquelme</p>
+        <p>Don José Riquelme</p>
+        <div class="social-links">
+            <a href="https://wa.me/51968668075" target="_blank" class="whatsapp">WhatsApp</a>
+            <a href="https://www.facebook.com/josemauel.riquelmeandres" target="_blank" class="facebook">Facebook</a>
+            <a href="https://www.tiktok.com/@josemauel.riquelmeandres" target="_blank" class="tiktok">TikTok</a>
+            <a href="https://www.instagram.com/josemauel.riquelmeandres" target="_blank" class="instagram">Instagram</a>
+            <a href="https://m.me/josemauel.riquelmeandres" target="_blank" class="messenger">Messenger</a>
+        </div>
+    </footer>
+    <script>
+        // --- Código JavaScript ---
+
+        // Define un array de objetos para manejar los productos con sus variantes
+        let products = [
+            {
+                id: 1,  
+                name: 'Leche Fresca',  
+                description: 'Leche fresca de la granja, 100% natural y sin aditivos.',
+                variants: [
+                    { id: 101, name: 'Leche Fresca 1L', price: 'S/. 5.00', image: 'leche freca.jpg', description: 'Leche fresca de alta calidad, perfecta para el consumo diario. Sabor puro y cremoso. Un clásico de nuestra granja.' },
+                    { id: 102, name: 'Leche Bonle', price: 'S/. 4.50', image: 'leche bonle.jpg', description: 'Leche de marca reconocida, UHT y fortificada con vitaminas. Larga duración para tu despensa. Calidad garantizada.' },
+                    { id: 103, name: 'Leche en Polvo', price: 'S/. 20.00', image: 'leche en polvo.jpg', description: 'Práctica leche en polvo para preparar al instante. Ideal para repostería o para tener una reserva. Excelente relación calidad-precio.' },
+                    { id: 104, name: 'Leche en Tarro', price: 'S/. 6.00', image: 'leche en tarro.jpg', description: 'Leche evaporada en tarro, ideal para postres y salsas cremosas. Aporta un sabor intenso y una textura inigualable a tus recetas.' },
+                    { id: 105, name: 'Leche Nestlé', price: 'S/. 5.20', image: 'leche nestle.jpg', description: 'Leche Nestlé, producto confiable y de alta demanda. Su calidad y precio la hacen una opción popular para toda la familia.' },
+                    { id: 106, name: 'Leche Soy Vida', price: 'S/. 3.80', image: 'leche soy vida.jpg', description: 'Leche de soya, una alternativa para personas intolerantes a la lactosa. Nutritiva y ligera, con un precio accesible.' },
+                    { id: 107, name: 'Leche Vaporada', price: 'S/. 12.00', image: 'leche vaporada.jpg', description: 'Leche concentrada, perfecta para preparar postres y bebidas. Un producto versátil que no puede faltar en tu cocina.' }
+                ]
+            },
+            {
+                id: 2,  
+                name: 'Mantequilla',  
+                description: 'Mantequillas de la mejor calidad, para tus tostadas o recetas.',
+                variants: [
+                    { id: 201, name: 'Mantequilla Layve', price: 'S/. 7.50', image: 'mantequilla layve.jpg', description: 'Mantequilla Layve, sabor clásico y textura suave. Ideal para untar y cocinar. Calidad media a precio competitivo.' },
+                    { id: 202, name: 'Mantequilla Gloria', price: 'S/. 9.00', image: 'mantequilla gloria.jpg', description: 'Mantequilla Gloria, reconocida por su sabor superior y cremosidad. Un ingrediente premium para tus mejores recetas.' },
+                    { id: 203, name: 'Mantequilla Derivado', price: 'S/. 6.00', image: 'mantequilla derivado.jpg', description: 'Mantequilla derivada con aceites vegetales. Alternativa más económica para la cocina. Precio bajo, buena calidad para su categoría.' },
+                    { id: 204, name: 'Mantequilla Tonadita', price: 'S/. 8.50', image: 'mantequilla tonadita.jpg', description: 'Mantequilla Tonadita, sabor ligero y versátil. Buena para repostería. Precio justo para la calidad ofrecida.' },
+                    { id: 205, name: 'Mantequilla Artesanal', price: 'S/. 10.00', image: 'mantequilla.jpg', description: 'Nuestra mantequilla artesanal, hecha con crema de leche fresca. Sabor intenso y natural, la mejor calidad de la granja. Precio premium.' }
+                ]
+            },
+            {
+                id: 3,  
+                name: 'Packs de Leche',  
+                description: 'Paquetes de leche para ahorrar y no quedarte sin stock.',
+                variants: [
+                    { id: 301, name: 'Pack Leche x1', price: 'S/. 5.00', image: 'pack 1.jpg', description: 'Pack de una unidad de leche fresca. Perfecto para el consumo individual. Precio por unidad.' },
+                    { id: 302, name: 'Pack Leche x2', price: 'S/. 9.50', image: 'pack 2.jpg', description: 'Pack de dos leches frescas. Una opción económica para parejas o consumo moderado.' },
+                    { id: 303, name: 'Pack Leche x3', price: 'S/. 14.00', image: 'pack 3.jpg', description: 'Pack de tres leches frescas. Ahorra en cada compra. Precio por paquete.' },
+                    { id: 304, name: 'Pack Leche x6', price: 'S/. 25.00', image: 'pack 6.jpg', description: 'El clásico pack de 6 unidades. Ideal para familias grandes. El mejor precio por litro.' },
+                    { id: 305, name: 'Pack Leche Gloria', price: 'S/. 28.00', image: 'pack gloria.jpg', description: 'Paquete de leche Gloria, 6 unidades. Calidad reconocida a un precio conveniente. Precio por paquete.' }
+                ]
+            },
+            {
+                id: 4,  
+                name: 'Leche en Polvo',  
+                description: 'Leche en polvo nutritiva para toda la familia.',
+                variants: [
+                    { id: 401, name: 'Leche en Polvo Anchor', price: 'S/. 35.00', image: 'polvo anchor.jpg', description: 'Leche en polvo de alta calidad de la marca Anchor. Ideal para el desarrollo infantil y nutrición familiar. Calidad superior.' },
+                    { id: 402, name: 'Leche en Polvo Andina', price: 'S/. 30.00', image: 'polvo andina.jpg', description: 'Leche en polvo Andina, opción económica y confiable. Buena para uso en repostería y bebidas. Precio accesible.' },
+                    { id: 403, name: 'Leche en Polvo Entera', price: 'S/. 28.00', image: 'polvo entera.jpg', description: 'Leche en polvo entera, con todo el sabor y la grasa de la leche. Ideal para quienes buscan sabor completo. Precio estándar.' },
+                    { id: 404, name: 'Leche en Polvo Modaro', price: 'S/. 32.00', image: 'polvo modaro.jpg', description: 'Leche en polvo Modaro, con vitaminas y minerales añadidos. Buen sabor y valor nutricional. Precio intermedio.' }
+                ]
+            },
+            {
+                id: 5,  
+                name: 'Yogurt',  
+                description: 'Yogurts de sabores variados, ideales para un snack saludable.',
+                variants: [
+                    { id: 501, name: 'Yogurt Vainilla', price: 'S/. 4.00', image: 'yogurt vainilla.jpg', description: 'Yogurt cremoso con sabor a vainilla, perfecto para un desayuno o postre ligero.' },
+                    { id: 502, name: 'Yogurt Fresa', price: 'S/. 4.00', image: 'yogurt fresa.jpg', description: 'Delicioso yogurt con sabor a fresa, ideal para un snack dulce.' },
+                    { id: 503, name: 'Yogurt Durazno', price: 'S/. 4.50', image: 'yogurt durazno.jpg', description: 'Yogurt con trozos de durazno, una explosión de sabor en cada cucharada.' },
+                    { id: 504, name: 'Yogurt Griego', price: 'S/. 6.00', image: 'yogurt griego.jpg', description: 'Yogurt griego natural, rico en proteínas y con una textura más espesa.' },
+                    { id: 505, name: 'Yogurt con Cereal', price: 'S/. 5.50', image: 'yogurt con cereal.jpg', description: 'Yogurt con una porción de cereal para un desayuno completo y rápido.' }
+                ]
+            }
+        ];
+
+        let nextProductId = products.length > 0 ? Math.max(...products.map(p => p.id)) + 1 : 1;
+        
+        // Función para cargar los productos en la página
+        function loadProducts() {
+            const productGrid = document.getElementById('productGrid');
+            productGrid.innerHTML = ''; // Limpia el contenido existente
+            
+            products.forEach(product => {
+                // Filtra las variantes para incluir solo las que tienen una imagen
+                const variantsWithImages = product.variants.filter(variant => variant.image);
+                
+                // Solo renderiza la categoría si tiene al menos una variante con imagen
+                if (variantsWithImages.length > 0) {
+                    const productCategoryDiv = document.createElement('div');
+                    productCategoryDiv.className = 'product-category';
+                    
+                    const header = document.createElement('div');
+                    header.className = 'category-header';
+                    header.innerHTML = `
+                        <img src="${variantsWithImages[0].image}" alt="${product.name}">
+                        <h3>${product.name}</h3>
+                    `;
+                    
+                    const variantsDiv = document.createElement('div');
+                    variantsDiv.className = 'product-variants';
+                    
+                    variantsWithImages.forEach(variant => {
+                        const variantItem = document.createElement('div');
+                        variantItem.className = 'product-variant-item';
+                        variantItem.innerHTML = `
+                            <img src="${variant.image}" alt="${variant.name}">
+                            <div class="variant-info">
+                                <h4>${variant.name}</h4>
+                                <p>Precio: ${variant.price}</p>
+                                <p>${variant.description}</p>
+                            </div>
+                        `;
+                        variantItem.addEventListener('click', () => showProductModal(variant));
+                        variantsDiv.appendChild(variantItem);
+                    });
+                    
+                    productCategoryDiv.appendChild(header);
+                    productCategoryDiv.appendChild(variantsDiv);
+                    productGrid.appendChild(productCategoryDiv);
+                }
+            });
+            attachCategoryEvents();
+            updatePedidoForm();
+            updateParentProductSelect();
+        }
+
+        // Función para mostrar/ocultar las variantes de un producto
+        function attachCategoryEvents() {
+            document.querySelectorAll('.category-header').forEach(header => {
+                header.addEventListener('click', function() {
+                    const variants = this.nextElementSibling;
+                    const isVisible = variants.style.display === 'grid';
+                    
+                    document.querySelectorAll('.product-variants').forEach(v => {
+                        v.style.display = 'none';
+                    });
+
+                    if (!isVisible) {
+                        variants.style.display = 'grid';
+                    }
+                });
+            });
+        }
+
+        // Función para llenar la lista de productos en el formulario de pedido
+        function updatePedidoForm() {
+            const select = document.getElementById('productoPedido');
+            select.innerHTML = '<option value="">Selecciona un producto</option>';
+            products.forEach(product => {
+                const variantsWithImages = product.variants.filter(variant => variant.image);
+                variantsWithImages.forEach(variant => {
+                    const option = document.createElement('option');
+                    option.value = variant.name;
+                    option.textContent = `${variant.name} (${variant.price})`;
+                    select.appendChild(option);
+                });
+            });
+        }
+        
+        // Función para llenar la lista de productos principales para agregar variedades
+        function updateParentProductSelect() {
+            const select = document.getElementById('parentProduct');
+            select.innerHTML = '';
+            products.forEach(product => {
+                const option = document.createElement('option');
+                option.value = product.id;
+                option.textContent = product.name;
+                select.appendChild(option);
+            });
+        }
+        
+        // Función para crear un nuevo producto principal
+        document.getElementById('newProductForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const newProductName = document.getElementById('newProductName').value;
+            const newProductDescription = document.getElementById('newProductDescription').value;
+            
+            const newProduct = {
+                id: nextProductId++,
+                name: newProductName,
+                description: newProductDescription,
+                variants: []
+            };
+            
+            products.push(newProduct);
+            loadProducts();
+            this.reset();
+            alert(`Producto principal "${newProductName}" creado con éxito. Ahora puedes agregarle variedades.`);
+        });
+        
+        // Función para agregar una nueva variedad a un producto existente
+        document.getElementById('newVariantForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const parentProductId = parseInt(document.getElementById('parentProduct').value);
+            const variantName = document.getElementById('variantName').value;
+            const variantPrice = document.getElementById('variantPrice').value;
+            const variantImageFile = document.getElementById('variantImage').files[0];
+            
+            if (variantImageFile) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    const variantImage = event.target.result;
+                    const parentProduct = products.find(p => p.id === parentProductId);
+                    
+                    if (parentProduct) {
+                        const newVariantId = parentProduct.variants.length > 0 ? Math.max(...parentProduct.variants.map(v => v.id)) + 1 : (parentProductId * 100) + 1;
+                        const newVariant = {
+                            id: newVariantId,
+                            name: variantName,
+                            price: variantPrice,
+                            image: variantImage,
+                            description: ''
+                        };
+                        parentProduct.variants.push(newVariant);
+                        loadProducts();
+                        alert(`Variedad "${variantName}" agregada con éxito a "${parentProduct.name}".`);
+                    }
+                    document.getElementById('newVariantForm').reset();
+                    document.getElementById('variantImagePreview').innerHTML = '';
+                };
+                reader.readAsDataURL(variantImageFile);
+            }
+        });
+
+        // Función para mostrar el modal del producto
+        function showProductModal(variant) {
+            const modal = document.getElementById('productModal');
+            document.getElementById('modalProductImage').src = variant.image;
+            document.getElementById('modalProductName').textContent = variant.name;
+            document.getElementById('modalProductPrice').textContent = variant.price;
+            document.getElementById('modalProductDescription').textContent = variant.description;
+            modal.style.display = 'block';
+        }
+        
+        // Cierra el modal cuando el usuario hace clic en (x)
+        document.querySelector('.close-button').onclick = function() {
+            document.getElementById('productModal').style.display = 'none';
+        }
+
+        // Cierra el modal cuando el usuario hace clic fuera de él
+        window.onclick = function(event) {
+            const modal = document.getElementById('productModal');
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
+        
+        // Inicializar la página
+        window.onload = loadProducts;
+        
+    </script>
+</body>
+</html>
+
+            
+</div>
+<section id="ubicacion" class="section location-section">
+    <div class="container">
+        <h2>Nuestra Ubicación</h2>
+        <p class="location-description">
+            ¡Visítanos! Nos encontramos en el corazón de **Tambo**, en la vibrante intersección de **Jr. La Victoria** y **Jr. Moquegua**. ¡Te esperamos con los brazos abiertos y los productos más frescos!
+        </p>
+
+        <div class="map-container">
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3902.955572624564!2d-75.1950481263884!3d-11.972322967664687!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x91501d5475ce913d%3A0xc6c4f69f2571b058!2sJr.%20La%20Victoria%20%26%20Jr.%20Moquegua%2C%20El%20Tambo%2012004!5e0!3m2!1ses-419!2spe!4v1699920199042!5m2!1ses-419!2spe" 
+                width="600" 
+                height="450" 
+                style="border:0;" 
+                allowfullscreen="" 
+                loading="lazy" 
+                referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+            
+            <a href="https://www.google.com/maps/dir/Concepci%C3%B3n,+Peru/El+Tambo+District,+Peru/data=!4m14!4m13!1m5!1m1!19sChIJkW9w24y4DpERMzdAaQxjeU4!2m2!1d-75.3149796!2d-11.918762099999999!1m5!1m1!19sChIJificp4m9DpERkH1UPol0GyQ!2m2!1d-75.2158171!2d-12.0579479!3e0" target="_blank" class="btn-ruta-modern">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-map-pin"><path d="M12 18.7l-6.7-6.7c-2.4-2.4-2.4-6.3 0-8.7s6.3-2.4 8.7 0l6.7 6.7c2.4 2.4 2.4 6.3 0 8.7s-6.3 2.4-8.7 0z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                Cómo llegar desde Concepción
+            </a>
+        </div>
+    </div>
+</section>
+
+  <div id="chatbot-section" class="section">
+    <h2>¿Necesitas Ayuda? Chatea con Nosotros</h2>
+    <p>Haz tus consultas sobre nuestros productos, precios y más. ¡Nuestro asistente te ayudará de inmediato!</p>
+    <div id="chatbot-container">
+        <div id="chat-window">
+            <div id="chat-header">
+                <div class="header-info">
+                    <img src="https://i.ibb.co/L5gqF0T/zero lacto.png" alt="Asistente de Riquelme" class="bot-avatar">
+                    <h3>Asistente de Riquelme</h3>
+                    <span class="status-indicator">En línea</span>
+                </div>
+                <span id="close-chat" class="close-button">&times;</span>
+            </div>
+            <div id="chat-messages">
+                <div class="message bot-message">
+                    <div class="message-content">
+                        Hola, soy el asistente de Riquelme. ¿En qué puedo ayudarte hoy?
+                    </div>
+                </div>
+            </div>
+            <div id="chat-input-container">
+                <input type="text" id="user-input" placeholder="Escribe tu mensaje..." aria-label="Escribe tu mensaje">
+                <button id="send-button" aria-label="Enviar mensaje">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-send"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                </button>
+            </div>
+        </div>
+        <button id="open-chat">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-message-circle"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L2 22l4.9-3.8A8.5 8.5 0 0 1 11.5 2a8.5 8.5 0 0 1 8.5 8.5z"></path></svg>
+        </button>
+    </div>
+</div>  
