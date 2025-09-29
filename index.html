@@ -1,385 +1,207 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Venta de Lácteos Frescos de Riquelme</title>
-    <style>
-        /* --- Estilos CSS de la web de lácteos --- */
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-            background-image: linear-gradient(to bottom right, #e8f5e9, #c8e6c9);
-            color: #333;
-        }
+    <link rel="stylesheet" href="estilos.css"> 
+</head>
+<body>
+    <header>
+        <h1>Venta de Lácteos Frescos de Riquelme</h1>
+        <p>¡Directo de la granja a tu mesa!</p>
+    </header>
 
-        header {
-            background-color: #4CAF50;
-            color: white;
-            padding: 1.5rem 0;
-            text-align: center;
-        }
+    <nav>
+        <a href="#productos">Productos</a>
+        <a href="#pedidos">Pedidos</a>
+        <a href="#consultas">Consultas</a>
+        <a href="#anuncios">Anuncios</a>
+        <a href="#promociones">Promociones</a>
+        <a href="#contactos">Contactos</a>
+        <a href="#contacto-empresarial">Contacto Empresarial</a>
+        <a href="#atencion-cliente">Atención al Cliente</a>
+    </nav>
 
-        nav {
-            background-color: #333;
-            color: white;
-            padding: 0.5rem 0;
-            text-align: center;
-        }
+    <div class="container">
+        <div id="productos" class="section">
+            <h2>Nuestros Productos</h2>
+            <div id="productGrid" class="product-table"></div>
+            
+            <hr style="margin: 2rem 0; border: 0; border-top: 1px solid #ccc;">
+            
+            <h3>Agregar un Nuevo Producto</h3>
+            <form id="newProductForm" autocomplete="off">
+                <label for="newProductName">Nombre del Producto Principal:</label>
+                <input type="text" id="newProductName" required>
+                <label for="newProductDescription">Descripción del Producto Principal:</label>
+                <textarea id="newProductDescription" rows="3" required></textarea>
+                <button type="submit">Crear Producto Principal</button>
+            </form>
 
-        nav a {
-            color: white;
-            text-decoration: none;
-            padding: 0.5rem 1rem;
-            display: inline-block;
-        }
+            <hr style="margin: 2rem 0; border: 0; border-top: 1px solid #ccc;">
 
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: auto;
-            overflow: hidden;
-            padding: 2rem 0;
-        }
+            <h3>Agregar una Variedad a un Producto Existente</h3>
+            <form id="newVariantForm" autocomplete="off">
+                <label for="parentProduct">Producto Principal:</label>
+                <select id="parentProduct" required></select>
+                
+                <label for="variantName">Nombre de la Variedad:</label>
+                <input type="text" id="variantName" required>
+                
+                <label for="variantPrice">Precio de la Variedad:</label>
+                <input type="text" id="variantPrice" required>
+                
+                <label for="variantImage">Imagen de la Variedad:</label>
+                <input type="file" id="variantImage" accept="image/*" required>
+                <div id="variantImagePreview" style="margin-top: 1rem; text-align: center;"></div>
 
-        .section {
-            background-color: white;
-            padding: 2rem;
-            margin-bottom: 2rem;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
+                <button type="submit">Agregar Variedad</button>
+            </form>
+        </div>
 
-        h2 {
-            color: #4CAF50;
-            border-bottom: 2px solid #4CAF50;
-            padding-bottom: 0.5rem;
-            margin-bottom: 2rem;
-        }
+        <div id="productModal" class="modal">
+            <div class="modal-content">
+                <span class="close-button">&times;</span>
+                <img id="modalProductImage" src="" alt="Imagen del producto">
+                <h3 id="modalProductName"></h3>
+                <p id="modalProductPrice"></p>
+                <p id="modalProductDescription"></p>
+            </div>
+        </div>
 
-        .product-table {
-            display: grid;
-            gap: 2rem;
-        }
+        <div id="pedidos" class="section">
+            <h2>Haz tu Pedido</h2>
+            <form id="pedidoForm" action="https://formspree.io/f/TU_CODIGO_AQUI" method="POST" autocomplete="off">
+                <input type="hidden" name="_replyto" value="josemanuelriquelmeandres1@gmail.com">
+                <input type="hidden" name="_subject" value="Nuevo Pedido Web">
+                <label for="nombrePedido">Nombre Completo:</label>
+                <input type="text" id="nombrePedido" name="nombre" placeholder="Ej: Juan Pérez" required>
+                <div id="nameError" class="error-message"></div>
+                <label for="productoPedido">Producto:</label>
+                <select id="productoPedido" name="producto" required>
+                    <option value="">Selecciona un producto</option>
+                </select>
+                <label for="cantidadPedido">Cantidad:</label>
+                <input type="number" id="cantidadPedido" name="cantidad" min="1" required>
+                <label for="direccionPedido">Dirección de Envío:</label>
+                <textarea id="direccionPedido" name="direccion" rows="3" placeholder="Ej: Av. Los Girasoles 123, Urb. San Carlos" required></textarea>
+                <label for="telefonoPedido">Teléfono de Contacto:</label>
+                <input type="tel" id="telefonoPedido" name="telefono" placeholder="Ej: 987654321" pattern="[0-9]{9}" title="9 dígitos (ej. 912345678)" required>
+                <div id="telefonoPedidoError" class="error-message"></div>
+                <button type="submit">Enviar Pedido</button>
+            </form>
+            <div id="pedidoResult" class="result-message"></div>
+        </div>
 
-        .product-category {
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            overflow: hidden;
-        }
-
-        .category-header {
-            background-color: #f9f9f9;
-            padding: 1rem;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            transition: background-color 0.3s ease;
-        }
+        <div id="consultas" class="section">
+            <h2>Envía tu Consulta o Comentario</h2>
+            <form id="consultaForm" action="https://formspree.io/f/TU_CODIGO_AQUI" method="POST" autocomplete="off">
+                <input type="hidden" name="_replyto" value="josemanuelriquelmeandres1@gmail.com">
+                <input type="hidden" name="_subject" value="Nueva Consulta/Comentario Web">
+                <label for="nombreConsulta">Nombre Completo:</label>
+                <input type="text" id="nombreConsulta" name="nombre" placeholder="Ej: Ana Gómez" required>
+                <div id="nombreConsultaError" class="error-message"></div>
+                <label for="emailConsulta">Correo Electrónico:</label>
+                <input type="email" id="emailConsulta" name="email" placeholder="ejemplo@correo.com" required>
+                <div id="emailConsultaError" class="error-message"></div>
+                <label for="tipoComentario">Tipo de Mensaje:</label>
+                <select id="tipoComentario" name="tipo_mensaje" required>
+                    <option value="">Selecciona una opción</option>
+                    <option value="Sugerencia">Sugerencia</option>
+                    <option value="Felicitación">Felicitación</option>
+                    <option value="Reclamo">Reclamo</option>
+                    <option value="Consulta">Consulta</option>
+                </select>
+                <label for="mensajeConsulta">Tu Mensaje:</label>
+                <textarea id="mensajeConsulta" name="mensaje" rows="3" placeholder="Ej: El queso de cabra estaba delicioso, ¿podrían considerar vender yogur griego?"></textarea>
+                <div id="wordCountMessage" style="font-size: 0.8rem; color: #777; text-align: right;"></div>
+                <label for="satisfactionLevel">Nivel de Satisfacción (1-10):</label>
+                <input type="number" id="satisfactionLevel" name="satisfaccion" min="1" max="10" required>
+                <label for="starRating">Calificación con Estrellas (1-3):</label>
+                <div class="rating">
+                    <input type="radio" id="star3" name="calificacion" value="3" required>
+                    <label for="star3" title="3 estrellas">&#9733;</label>
+                    <input type="radio" id="star2" name="calificacion" value="2" required>
+                    <label for="star2" title="2 estrellas">&#9733;</label>
+                    <input type="radio" id="star1" name="calificacion" value="1" required>
+                    <label for="star1" title="1 estrella">&#9733;</label>
+                </div>
+                <button type="submit">Enviar Consulta</button>
+            </form>
+            <div id="consultaResult" class="result-message"></div>
+        </div>
         
-        .category-header:hover {
-            background-color: #eee;
-        }
+        <div id="anuncios" class="section">
+            <h2>Anuncios y Novedades</h2>
+            <div id="anunciosContent">
+                <h3>¡Nuevo producto en la tienda!</h3>
+                <p>Hemos añadido nuestra deliciosa leche en tarro. ¡Perfecta para tus postres y cafés!</p>
+            </div>
+            <h3>Cargar una Imagen de Anuncio</h3>
+            <p>Sube una foto de nuestros productos. La imagen se adecuará a un tamaño de 200px de ancho.</p>
+            <input type="file" id="imageUploader" accept="image/*">
+            <div id="imagePreview"></div>
+        </div>
 
-        .category-header img {
-            width: 80px;
-            height: 80px;
-            object-fit: cover;
-            border-radius: 4px;
-        }
+        <div id="promociones" class="section">
+            <h2>Promociones y Ofertas</h2>
+            <div class="offer-card">
+                <h3>¡Oferta de la Semana!</h3>
+                <p>2 litros de Leche Fresca + 1 kg de Queso Artesanal por solo <strong>S/. 30.00</strong></p>
+                <p>¡Aprovecha antes de que se acabe!</p>
+            </div>
+            <div id="promocionInfo" class="result-message" style="display:block; background-color: #fff3e0; color: #e65100; border-color: #ffe0b2;">
+                <h4>Detalles de la Promoción:</h4>
+                <p>Esta oferta te permite ahorrar un 15% sobre el precio regular. Promoción válida hasta el próximo domingo.</p>
+            </div>
+        </div>
 
-        .category-header h3 {
-            margin: 0;
-            font-size: 1.5rem;
-            color: #333;
-        }
-
-        .product-variants {
-            display: none;
-            padding: 1rem;
-            border-top: 1px solid #ddd;
-            background-color: #fff;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 1rem;
-        }
-
-        .product-variant-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 1rem;
-            padding: 1rem;
-            border: 1px solid #eee;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: box-shadow 0.3s ease;
-            text-align: center;
-        }
-
-        .product-variant-item:hover {
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .product-variant-item img {
-            width: 100%;
-            height: auto;
-            max-width: 150px;
-            object-fit: cover;
-            border-radius: 4px;
-        }
-
-        .variant-info {
-            flex-grow: 1;
-        }
-
-        .variant-info h4 {
-            margin: 0;
-            font-size: 1.1rem;
-        }
+        <div id="contactos" class="section">
+            <h2>Contáctanos</h2>
+            <p><strong>Número de contacto:</strong> 968668075</p>
+            <p>Haz clic en los enlaces de abajo para contactarnos por WhatsApp o visitar nuestras redes sociales.</p>
+            <div class="social-links">
+                <a href="https://wa.me/51968668075" target="_blank" class="whatsapp">WhatsApp</a>
+                <a href="https://www.facebook.com/josemauel.riquelmeandres" target="_blank" class="facebook">Facebook</a>
+                <a href="https://www.tiktok.com/@josemauel.riquelmeandres" target="_blank" class="tiktok">TikTok</a>
+                <a href="https://www.instagram.com/josemauel.riquelmeandres" target="_blank" class="instagram">Instagram</a>
+                <a href="https://m.me/josemauel.riquelmeandres" target="_blank" class="messenger">Messenger</a>
+            </div>
+        </div>
         
-        .variant-info p {
-            margin: 0.2rem 0 0;
-            color: #555;
-            font-size: 0.9rem;
-        }
+        <div id="contacto-empresarial" class="section business-contact">
+            <h2>¡Hola! ¿Quieres hacer negocios?</h2>
+            <p>Conéctate con nosotros de forma fácil y rápida para propuestas, colaboraciones o consultas empresariales.</p>
+            
+            <form id="businessContactForm" action="https://formspree.io/f/TU_CODIGO_AQUI" method="POST" autocomplete="off">
+                <input type="hidden" name="_replyto" value="josemanuelriquelmeandres1@gmail.com">
+                <input type="hidden" name="_subject" value="Contacto Empresarial">
+                <div class="form-group">
+                    <label for="businessNombre">Tu Nombre Completo</label>
+                    <input type="text" id="businessNombre" name="nombre" placeholder="Ej: José Riquelme" required>
+                    <div id="businessNombreError" class="error-message"></div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="businessEmail">Correo Electrónico</label>
+                    <input type="email" id="businessEmail" name="email" placeholder="ejemplo@empresa.com" required>
+                    <div id="businessEmailError" class="error-message"></div>
+                </div>
 
-        form {
-            display: grid;
-            gap: 1rem;
-        }
+                <div class="form-group">
+                    <label for="businessTelefono">Número de Teléfono</label>
+                    <input type="tel" id="businessTelefono" name="telefono" placeholder="Ej: 987654321" pattern="[0-9]{9}" title="9 dígitos (ej. 912345678)" required>
+                    <div id="                                                                                                          
 
-        label {
-            font-weight: bold;
-        }
-
-        input, textarea, select {
-            width: 100%;
-            padding: 0.8rem;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-        
-        input::placeholder, textarea::placeholder {
-            color: #999;
-            font-style: italic;
-        }
-
-        button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 1rem;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 1rem;
-            transition: background-color 0.3s ease;
-        }
-
-        button:hover {
-            background-color: #45a049;
-        }
-
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0,0,0,0.7);
-            padding-top: 60px;
-        }
-
-        .modal-content {
-            background-color: #fff;
-            margin: 5% auto;
-            padding: 2rem;
-            border-radius: 8px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            width: 80%;
-            max-width: 600px;
-            position: relative;
-            text-align: center;
-        }
-
-        .close-button {
-            color: #aaa;
-            position: absolute;
-            top: 10px;
-            right: 25px;
-            font-size: 28px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        .close-button:hover,
-        .close-button:focus {
-            color: #000;
-            text-decoration: none;
-        }
-
-        .modal-content img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 8px;
-            margin-bottom: 1rem;
-        }
-
-        .result-message {
-            margin-top: 1rem;
-            padding: 1rem;
-            border-radius: 4px;
-            background-color: #e8f5e9;
-            color: #2e7d32;
-            border: 1px solid #c8e6c9;
-            text-align: left;
-            display: none;
-        }
-        .error-message {
-            color: #d32f2f;
-            background-color: #ffebee;
-            border: 1px solid #ef9a9a;
-            padding: 0.5rem;
-            border-radius: 4px;
-            display: none;
-            margin-top: 0.5rem;
-        }
-
-        .rating {
-            display: inline-block;
-        }
-
-        .rating input {
-            display: none;
-        }
-
-        .rating label {
-            font-size: 2.5em;
-            color: #ccc;
-            cursor: pointer;
-            transition: color 0.2s;
-        }
-
-        .rating label:hover,
-        .rating label:hover ~ label,
-        .rating input:checked ~ label {
-            color: #FFD700;
-        }
-
-        .thank-you-message {
-            margin-top: 15px;
-            font-size: 1.2em;
-            color: #4CAF50;
-            font-weight: bold;
-            display: none;
-        }
-
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            flex-wrap: wrap;
-            margin-top: 1.5rem;
-        }
-
-        .social-links a {
-            text-decoration: none;
-            color: white;
-            font-weight: bold;
-            padding: 0.8rem 1.5rem;
-            border-radius: 5px;
-            transition: transform 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .social-links a:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-        }
-
-        .whatsapp { background-color: #25D366; }
-        .facebook { background-color: #1877F2; }
-        .tiktok { background-color: #000; }
-        .instagram { background-color: #E4405F; }
-        .messenger { background-color: #0078FF; }
-
-        footer {
-            background-color: #222;
-            color: white;
-            text-align: center;
-            padding: 2rem 0;
-            margin-top: 2rem;
-        }
-
-        footer p {
-            margin: 0.5rem 0;
-        }
-
-        footer .social-links a {
-            color: white;
-            padding: 0.5rem 1rem;
-            margin: 0 0.5rem;
-            background-color: transparent;
-            border: 1px solid white;
-        }
-
-        footer .social-links a:hover {
-            background-color: rgba(255, 255, 255, 0.2);
-        }
-        
-        .business-contact {
-            font-family: 'Comic Sans MS', 'Arial', cursive;
-        }
-        
-        .business-contact h2 {
-            color: #ff6347;
-            border-bottom: 2px dashed #ff6347;
-            display: inline-block;
-            padding-bottom: 5px;
-        }
-
-        .business-contact input,
-        .business-contact textarea,
-        .business-contact select {
-            font-family: 'Comic Sans MS', 'Arial', cursive;
-        }
-
-        .business-contact label {
-            color: #ff6347;
-        }
-
-        .business-contact button {
-            border-radius: 25px;
-        }
-
-        .business-contact .confirmation-message {
-            background-color: #e8f5e9;
-            color: #2e7d32;
-            border: 1px solid #c8e6c9;
-            display: none;
-        }
-        
-        .customer-service h2 {
-            color: #1E90FF;
-            border-bottom: 2px solid #1E90FF;
-        }
-
-        .customer-service label {
-            color: #1E90FF;
-        }
-
-        #product-intro {
-            display: none;
-        }
-    </style>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Venta de Lácteos Frescos de Riquelme</title>
+    <link rel="stylesheet" href="estilos.css"> 
 </head>
 <body>
     <header>
@@ -676,13 +498,13 @@
         </div>
     </footer>
     <script>
-        // --- Código JavaScript ---
+        // --- Código JavaScript Completo ---
 
         // Define un array de objetos para manejar los productos con sus variantes
         let products = [
             {
-                id: 1,  
-                name: 'Leche Fresca',  
+                id: 1,
+                name: 'Leche Fresca',
                 description: 'Leche fresca de la granja, 100% natural y sin aditivos.',
                 variants: [
                     { id: 101, name: 'Leche Fresca 1L', price: 'S/. 5.00', image: 'leche freca.jpg', description: 'Leche fresca de alta calidad, perfecta para el consumo diario. Sabor puro y cremoso. Un clásico de nuestra granja.' },
@@ -695,8 +517,8 @@
                 ]
             },
             {
-                id: 2,  
-                name: 'Mantequilla',  
+                id: 2,
+                name: 'Mantequilla',
                 description: 'Mantequillas de la mejor calidad, para tus tostadas o recetas.',
                 variants: [
                     { id: 201, name: 'Mantequilla Layve', price: 'S/. 7.50', image: 'mantequilla layve.jpg', description: 'Mantequilla Layve, sabor clásico y textura suave. Ideal para untar y cocinar. Calidad media a precio competitivo.' },
@@ -707,8 +529,8 @@
                 ]
             },
             {
-                id: 3,  
-                name: 'Packs de Leche',  
+                id: 3,
+                name: 'Packs de Leche',
                 description: 'Paquetes de leche para ahorrar y no quedarte sin stock.',
                 variants: [
                     { id: 301, name: 'Pack Leche x1', price: 'S/. 5.00', image: 'pack 1.jpg', description: 'Pack de una unidad de leche fresca. Perfecto para el consumo individual. Precio por unidad.' },
@@ -719,266 +541,474 @@
                 ]
             },
             {
-                id: 4,  
-                name: 'Leche en Polvo',  
+                id: 4,
+                name: 'Leche en Polvo',
                 description: 'Leche en polvo nutritiva para toda la familia.',
                 variants: [
                     { id: 401, name: 'Leche en Polvo Anchor', price: 'S/. 35.00', image: 'polvo anchor.jpg', description: 'Leche en polvo de alta calidad de la marca Anchor. Ideal para el desarrollo infantil y nutrición familiar. Calidad superior.' },
                     { id: 402, name: 'Leche en Polvo Andina', price: 'S/. 30.00', image: 'polvo andina.jpg', description: 'Leche en polvo Andina, opción económica y confiable. Buena para uso en repostería y bebidas. Precio accesible.' },
-                    { id: 403, name: 'Leche en Polvo Entera', price: 'S/. 28.00', image: 'polvo entera.jpg', description: 'Leche en polvo entera, con todo el sabor y la grasa de la leche. Ideal para quienes buscan sabor completo. Precio estándar.' },
-                    { id: 404, name: 'Leche en Polvo Modaro', price: 'S/. 32.00', image: 'polvo modaro.jpg', description: 'Leche en polvo Modaro, con vitaminas y minerales añadidos. Buen sabor y valor nutricional. Precio intermedio.' }
-                ]
-            },
-            {
-                id: 5,  
-                name: 'Yogurt',  
-                description: 'Yogurts de sabores variados, ideales para un snack saludable.',
-                variants: [
-                    { id: 501, name: 'Yogurt Vainilla', price: 'S/. 4.00', image: 'yogurt vainilla.jpg', description: 'Yogurt cremoso con sabor a vainilla, perfecto para un desayuno o postre ligero.' },
-                    { id: 502, name: 'Yogurt Fresa', price: 'S/. 4.00', image: 'yogurt fresa.jpg', description: 'Delicioso yogurt con sabor a fresa, ideal para un snack dulce.' },
-                    { id: 503, name: 'Yogurt Durazno', price: 'S/. 4.50', image: 'yogurt durazno.jpg', description: 'Yogurt con trozos de durazno, una explosión de sabor en cada cucharada.' },
-                    { id: 504, name: 'Yogurt Griego', price: 'S/. 6.00', image: 'yogurt griego.jpg', description: 'Yogurt griego natural, rico en proteínas y con una textura más espesa.' },
-                    { id: 505, name: 'Yogurt con Cereal', price: 'S/. 5.50', image: 'yogurt con cereal.jpg', description: 'Yogurt con una porción de cereal para un desayuno completo y rápido.' }
+                    { id: 403, name: 'Leche en Polvo Entera', price: 'S/. 28.00', image: 'polvo entera.jpg', description: 'Leche en polvo entera, versátil y con un sabor rico. Ideal para hornear y mezclar. Buena fuente de calcio.' }
                 ]
             }
         ];
 
-        let nextProductId = products.length > 0 ? Math.max(...products.map(p => p.id)) + 1 : 1;
-        
-        // Función para cargar los productos en la página
-        function loadProducts() {
-            const productGrid = document.getElementById('productGrid');
-            productGrid.innerHTML = ''; // Limpia el contenido existente
-            
+        // Asigna un ID único a cada nuevo producto o variante.
+        let nextProductId = products.reduce((max, p) => Math.max(max, p.id), 0) + 1;
+        let nextVariantId = products.flatMap(p => p.variants).reduce((max, v) => Math.max(max, v.id), 0) + 1;
+
+        const productGrid = document.getElementById('productGrid');
+        const productModal = document.getElementById('productModal');
+        const closeButton = document.querySelector('.close-button');
+        const modalProductImage = document.getElementById('modalProductImage');
+        const modalProductName = document.getElementById('modalProductName');
+        const modalProductPrice = document.getElementById('modalProductPrice');
+        const modalProductDescription = document.getElementById('modalProductDescription');
+        const newProductForm = document.getElementById('newProductForm');
+        const newVariantForm = document.getElementById('newVariantForm');
+        const parentProductSelect = document.getElementById('parentProduct');
+        const pedidoProductSelect = document.getElementById('productoPedido');
+        const variantImageInput = document.getElementById('variantImage');
+        const variantImagePreview = document.getElementById('variantImagePreview');
+
+
+        /**
+         * Renders the product grid on the page.
+         */
+        function renderProductGrid() {
+            productGrid.innerHTML = ''; // Limpia el grid antes de renderizar
             products.forEach(product => {
-                // Filtra las variantes para incluir solo las que tienen una imagen
-                const variantsWithImages = product.variants.filter(variant => variant.image);
-                
-                // Solo renderiza la categoría si tiene al menos una variante con imagen
-                if (variantsWithImages.length > 0) {
-                    const productCategoryDiv = document.createElement('div');
-                    productCategoryDiv.className = 'product-category';
-                    
-                    const header = document.createElement('div');
-                    header.className = 'category-header';
-                    header.innerHTML = `
-                        <img src="${variantsWithImages[0].image}" alt="${product.name}">
+                const productCategoryDiv = document.createElement('div');
+                productCategoryDiv.className = 'product-category';
+                productCategoryDiv.dataset.productId = product.id;
+
+                // Header for toggling visibility
+                const categoryHeader = document.createElement('div');
+                categoryHeader.className = 'category-header';
+                // Use the image of the first variant as the category image, or a placeholder
+                const categoryImage = product.variants.length > 0 ? product.variants[0].image : 'placeholder.jpg';
+                categoryHeader.innerHTML = `
+                    <img src="${categoryImage}" alt="${product.name}">
+                    <div>
                         <h3>${product.name}</h3>
+                        <p>${product.description}</p>
+                    </div>
+                `;
+                categoryHeader.addEventListener('click', () => {
+                    const variantsDiv = productCategoryDiv.querySelector('.product-variants');
+                    variantsDiv.style.display = variantsDiv.style.display === 'grid' ? 'none' : 'grid';
+                });
+
+                productCategoryDiv.appendChild(categoryHeader);
+
+                // Variants Container
+                const variantsDiv = document.createElement('div');
+                variantsDiv.className = 'product-variants';
+
+                product.variants.forEach(variant => {
+                    const variantItem = document.createElement('div');
+                    variantItem.className = 'product-variant-item';
+                    variantItem.innerHTML = `
+                        <img src="${variant.image}" alt="${variant.name}">
+                        <div class="variant-info">
+                            <h4>${variant.name}</h4>
+                            <p>Precio: <strong>${variant.price}</strong></p>
+                        </div>
                     `;
-                    
-                    const variantsDiv = document.createElement('div');
-                    variantsDiv.className = 'product-variants';
-                    
-                    variantsWithImages.forEach(variant => {
-                        const variantItem = document.createElement('div');
-                        variantItem.className = 'product-variant-item';
-                        variantItem.innerHTML = `
-                            <img src="${variant.image}" alt="${variant.name}">
-                            <div class="variant-info">
-                                <h4>${variant.name}</h4>
-                                <p>Precio: ${variant.price}</p>
-                                <p>${variant.description}</p>
-                            </div>
-                        `;
-                        variantItem.addEventListener('click', () => showProductModal(variant));
-                        variantsDiv.appendChild(variantItem);
-                    });
-                    
-                    productCategoryDiv.appendChild(header);
-                    productCategoryDiv.appendChild(variantsDiv);
-                    productGrid.appendChild(productCategoryDiv);
-                }
-            });
-            attachCategoryEvents();
-            updatePedidoForm();
-            updateParentProductSelect();
-        }
-
-        // Función para mostrar/ocultar las variantes de un producto
-        function attachCategoryEvents() {
-            document.querySelectorAll('.category-header').forEach(header => {
-                header.addEventListener('click', function() {
-                    const variants = this.nextElementSibling;
-                    const isVisible = variants.style.display === 'grid';
-                    
-                    document.querySelectorAll('.product-variants').forEach(v => {
-                        v.style.display = 'none';
-                    });
-
-                    if (!isVisible) {
-                        variants.style.display = 'grid';
-                    }
+                    // Add click event to open modal
+                    variantItem.addEventListener('click', () => openProductModal(variant));
+                    variantsDiv.appendChild(variantItem);
                 });
+
+                productCategoryDiv.appendChild(variantsDiv);
+                productGrid.appendChild(productCategoryDiv);
             });
+            
+            populateProductSelects();
         }
 
-        // Función para llenar la lista de productos en el formulario de pedido
-        function updatePedidoForm() {
-            const select = document.getElementById('productoPedido');
-            select.innerHTML = '<option value="">Selecciona un producto</option>';
-            products.forEach(product => {
-                const variantsWithImages = product.variants.filter(variant => variant.image);
-                variantsWithImages.forEach(variant => {
-                    const option = document.createElement('option');
-                    option.value = variant.name;
-                    option.textContent = `${variant.name} (${variant.price})`;
-                    select.appendChild(option);
-                });
-            });
-        }
-        
-        // Función para llenar la lista de productos principales para agregar variedades
-        function updateParentProductSelect() {
-            const select = document.getElementById('parentProduct');
-            select.innerHTML = '';
+        /**
+         * Populates the product dropdowns in the 'Add Variant' and 'Place Order' sections.
+         */
+        function populateProductSelects() {
+            // Populate 'Add Variant' dropdown
+            parentProductSelect.innerHTML = '<option value="">Selecciona un producto</option>';
+            // Populate 'Place Order' dropdown
+            pedidoProductSelect.innerHTML = '<option value="">Selecciona un producto</option>';
+
             products.forEach(product => {
                 const option = document.createElement('option');
                 option.value = product.id;
                 option.textContent = product.name;
-                select.appendChild(option);
+                parentProductSelect.appendChild(option);
+
+                // Populate 'Place Order' dropdown with all variants
+                product.variants.forEach(variant => {
+                    const variantOption = document.createElement('option');
+                    variantOption.value = variant.name;
+                    variantOption.textContent = `${variant.name} (${variant.price})`;
+                    pedidoProductSelect.appendChild(variantOption);
+                });
             });
         }
-        
-        // Función para crear un nuevo producto principal
-        document.getElementById('newProductForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const newProductName = document.getElementById('newProductName').value;
-            const newProductDescription = document.getElementById('newProductDescription').value;
-            
-            const newProduct = {
-                id: nextProductId++,
-                name: newProductName,
-                description: newProductDescription,
-                variants: []
-            };
-            
-            products.push(newProduct);
-            loadProducts();
-            this.reset();
-            alert(`Producto principal "${newProductName}" creado con éxito. Ahora puedes agregarle variedades.`);
+
+        /**
+         * Opens the product detail modal.
+         * @param {object} product - The variant object to display.
+         */
+        function openProductModal(product) {
+            modalProductImage.src = product.image;
+            modalProductImage.alt = product.name;
+            modalProductName.textContent = product.name;
+            modalProductPrice.textContent = `Precio: ${product.price}`;
+            modalProductDescription.textContent = product.description;
+            productModal.style.display = 'block';
+        }
+
+        // Close the modal when the close button or outside the modal is clicked
+        closeButton.addEventListener('click', () => {
+            productModal.style.display = 'none';
         });
-        
-        // Función para agregar una nueva variedad a un producto existente
-        document.getElementById('newVariantForm').addEventListener('submit', function(e) {
+
+        window.addEventListener('click', (event) => {
+            if (event.target === productModal) {
+                productModal.style.display = 'none';
+            }
+        });
+
+
+        // --- Product Management Forms ---
+
+        // 1. Add New Product Form Submission
+        newProductForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            const parentProductId = parseInt(document.getElementById('parentProduct').value);
-            const variantName = document.getElementById('variantName').value;
-            const variantPrice = document.getElementById('variantPrice').value;
-            const variantImageFile = document.getElementById('variantImage').files[0];
-            
-            if (variantImageFile) {
-                const reader = new FileReader();
-                reader.onload = function(event) {
-                    const variantImage = event.target.result;
-                    const parentProduct = products.find(p => p.id === parentProductId);
-                    
-                    if (parentProduct) {
-                        const newVariantId = parentProduct.variants.length > 0 ? Math.max(...parentProduct.variants.map(v => v.id)) + 1 : (parentProductId * 100) + 1;
-                        const newVariant = {
-                            id: newVariantId,
-                            name: variantName,
-                            price: variantPrice,
-                            image: variantImage,
-                            description: ''
-                        };
-                        parentProduct.variants.push(newVariant);
-                        loadProducts();
-                        alert(`Variedad "${variantName}" agregada con éxito a "${parentProduct.name}".`);
-                    }
-                    document.getElementById('newVariantForm').reset();
-                    document.getElementById('variantImagePreview').innerHTML = '';
+            const name = document.getElementById('newProductName').value.trim();
+            const description = document.getElementById('newProductDescription').value.trim();
+
+            if (name && description) {
+                const newProduct = {
+                    id: nextProductId++,
+                    name: name,
+                    description: description,
+                    variants: []
                 };
-                reader.readAsDataURL(variantImageFile);
+                products.push(newProduct);
+                renderProductGrid();
+                newProductForm.reset();
+                alert(`Producto principal "${name}" creado con éxito. Ahora puedes agregarle variedades.`);
             }
         });
 
-        // Función para mostrar el modal del producto
-        function showProductModal(variant) {
-            const modal = document.getElementById('productModal');
-            document.getElementById('modalProductImage').src = variant.image;
-            document.getElementById('modalProductName').textContent = variant.name;
-            document.getElementById('modalProductPrice').textContent = variant.price;
-            document.getElementById('modalProductDescription').textContent = variant.description;
-            modal.style.display = 'block';
-        }
-        
-        // Cierra el modal cuando el usuario hace clic en (x)
-        document.querySelector('.close-button').onclick = function() {
-            document.getElementById('productModal').style.display = 'none';
+        // 2. Add Variant Form Submission
+        newVariantForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const parentId = parseInt(parentProductSelect.value);
+            const variantName = document.getElementById('variantName').value.trim();
+            const variantPrice = document.getElementById('variantPrice').value.trim();
+            const variantImage = variantImageInput.files[0];
+
+            const parentProduct = products.find(p => p.id === parentId);
+
+            if (parentProduct && variantName && variantPrice && variantImage) {
+                // Mocking the image URL since we can't upload files in this environment
+                const mockImageUrl = URL.createObjectURL(variantImage);
+
+                const newVariant = {
+                    id: nextVariantId++,
+                    name: variantName,
+                    price: variantPrice,
+                    image: mockImageUrl,
+                    description: `Variedad de ${parentProduct.name} - ${variantName}`
+                };
+
+                parentProduct.variants.push(newVariant);
+                renderProductGrid();
+                newVariantForm.reset();
+                variantImagePreview.innerHTML = '';
+                alert(`Variedad "${variantName}" agregada a "${parentProduct.name}" con éxito.`);
+            } else if (!parentProduct) {
+                alert('Por favor, selecciona un producto principal.');
+            } else if (!variantImage) {
+                alert('Por favor, selecciona una imagen para la variedad.');
+            }
+        });
+
+        // Image Preview for New Variant
+        variantImageInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            variantImagePreview.innerHTML = '';
+            if (file) {
+                const img = document.createElement('img');
+                img.src = URL.createObjectURL(file);
+                img.style.maxWidth = '100px';
+                img.style.maxHeight = '100px';
+                img.style.borderRadius = '4px';
+                img.alt = 'Vista previa de la imagen';
+                variantImagePreview.appendChild(img);
+            }
+        });
+
+
+        // --- Form Validation and Submission Handlers ---
+
+        /**
+         * Simulates a successful form submission and displays a result message.
+         * @param {HTMLFormElement} formElement - The form that was submitted.
+         * @param {string} resultId - The ID of the result message element.
+         * @param {string} successMessage - The message to display on success.
+         * @param {string} [confirmationId] - The ID of the optional secondary confirmation message element.
+         */
+        function handleFormSubmission(formElement, resultId, successMessage, confirmationId) {
+            const resultElement = document.getElementById(resultId);
+            const confirmationElement = confirmationId ? document.getElementById(confirmationId) : null;
+
+            // Simulate sending data (Formspree/AJAX)
+            // In a real scenario, an AJAX call to formspree would happen here.
+            // We'll skip the actual POST for this demo.
+
+            formElement.reset(); // Clear the form
+            
+            // Display the main result message
+            resultElement.textContent = successMessage;
+            resultElement.style.display = 'block';
+
+            // Display the optional secondary confirmation message (used for business contact)
+            if (confirmationElement) {
+                confirmationElement.style.display = 'block';
+            }
+
+            // Hide messages after 5 seconds
+            setTimeout(() => {
+                resultElement.style.display = 'none';
+                if (confirmationElement) {
+                    confirmationElement.style.display = 'none';
+                }
+            }, 5000);
         }
 
-        // Cierra el modal cuando el usuario hace clic fuera de él
-        window.onclick = function(event) {
-            const modal = document.getElementById('productModal');
-            if (event.target == modal) {
-                modal.style.display = 'none';
-            }
+        /**
+         * Validates form fields (name, email, phone) and returns true if all are valid.
+         * @param {HTMLFormElement} formElement - The form to validate.
+         * @param {Array<object>} fields - Array of objects with validation rules.
+         * @returns {boolean} - True if validation passes.
+         */
+        function validateForm(formElement, fields) {
+            let isValid = true;
+            
+            // Utility functions for validation
+            const validateName = (name) => /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]{2,}$/.test(name);
+            const validateEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+            const validatePhone = (phone) => /^[0-9]{9}$/.test(phone);
+
+            fields.forEach(field => {
+                const input = formElement.querySelector(`#${field.id}`);
+                const errorDiv = document.getElementById(field.errorId);
+                let error = '';
+
+                if (input.hasAttribute('required') && input.value.trim() === '') {
+                    error = 'Este campo es obligatorio.';
+                } else if (field.type === 'name' && !validateName(input.value.trim())) {
+                    error = 'El nombre debe contener solo letras y espacios.';
+                } else if (field.type === 'email' && !validateEmail(input.value.trim())) {
+                    error = 'Ingresa un correo electrónico válido.';
+                } else if (field.type === 'phone' && !validatePhone(input.value.trim())) {
+                    error = 'El teléfono debe ser un número de 9 dígitos.';
+                }
+
+                if (error) {
+                    errorDiv.textContent = error;
+                    errorDiv.style.display = 'block';
+                    isValid = false;
+                } else {
+                    errorDiv.style.display = 'none';
+                }
+            });
+
+            return isValid;
         }
-        
-        // Inicializar la página
-        window.onload = loadProducts;
-        
+
+
+        // --- Form Event Listeners ---
+
+        // 1. Pedido Form
+        const pedidoForm = document.getElementById('pedidoForm');
+        pedidoForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const fields = [
+                { id: 'nombrePedido', errorId: 'nameError', type: 'name' },
+                { id: 'telefonoPedido', errorId: 'telefonoPedidoError', type: 'phone' }
+            ];
+            if (validateForm(pedidoForm, fields)) {
+                handleFormSubmission(pedidoForm, 'pedidoResult', `¡Pedido enviado! Confirmaremos la disponibilidad de tu producto y la entrega.`);
+            }
+        });
+
+        // 2. Consulta Form
+        const consultaForm = document.getElementById('consultaForm');
+        const mensajeConsulta = document.getElementById('mensajeConsulta');
+        const wordCountMessage = document.getElementById('wordCountMessage');
+
+        // Word count feature for message
+        mensajeConsulta.addEventListener('input', () => {
+            const text = mensajeConsulta.value.trim();
+            const wordCount = text ? text.split(/\s+/).length : 0;
+            wordCountMessage.textContent = `${wordCount} palabra${wordCount !== 1 ? 's' : ''}`;
+        });
+
+        consultaForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const fields = [
+                { id: 'nombreConsulta', errorId: 'nombreConsultaError', type: 'name' },
+                { id: 'emailConsulta', errorId: 'emailConsultaError', type: 'email' }
+            ];
+            if (validateForm(consultaForm, fields)) {
+                handleFormSubmission(consultaForm, 'consultaResult', `¡Gracias por tu mensaje! Hemos recibido tu consulta/comentario.`);
+            }
+        });
+
+
+        // 3. Business Contact Form
+        const businessContactForm = document.getElementById('businessContactForm');
+        businessContactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const fields = [
+                { id: 'businessNombre', errorId: 'businessNombreError', type: 'name' },
+                { id: 'businessEmail', errorId: 'businessEmailError', type: 'email' },
+                { id: 'businessTelefono', errorId: 'businessTelefonoError', type: 'phone' }
+            ];
+            if (validateForm(businessContactForm, fields)) {
+                handleFormSubmission(businessContactForm, 'businessConfirmation', '¡Mensaje de negocio enviado con éxito! Nos pondremos en contacto contigo pronto.', 'businessConfirmation');
+            }
+        });
+
+        // 4. Customer Service Form
+        const customerServiceForm = document.getElementById('customerServiceForm');
+        customerServiceForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const fields = [
+                { id: 'csNombre', errorId: 'csNombreError', type: 'name' },
+                { id: 'csEmail', errorId: 'csEmailError', type: 'email' },
+                { id: 'csTelefono', errorId: 'csTelefonoError', type: 'phone' }
+            ];
+            if (validateForm(customerServiceForm, fields)) {
+                handleFormSubmission(customerServiceForm, 'customerServiceConfirmation', '¡Gracias por contactarnos! Tu mensaje de Atención al Cliente ha sido enviado.');
+            }
+        });
+
+
+        // --- Image Uploader and Star Rating ---
+
+        // Image Uploader for 'Anuncios'
+        const imageUploader = document.getElementById('imageUploader');
+        const imagePreview = document.getElementById('imagePreview');
+
+        imageUploader.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            imagePreview.innerHTML = '';
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    const img = document.createElement('img');
+                    img.src = event.target.result;
+                    img.style.maxWidth = '200px'; // Apply the requested width from the prompt
+                    img.style.height = 'auto';
+                    img.style.borderRadius = '8px';
+                    img.style.marginTop = '1rem';
+                    img.alt = 'Anuncio subido';
+                    imagePreview.appendChild(img);
+                    alert('Imagen cargada correctamente para previsualización.');
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Final Star Rating for Thank You Section
+        const ratingStars = document.getElementById('ratingStars');
+        const finalThankYouMessage = document.getElementById('finalThankYouMessage');
+
+        ratingStars.addEventListener('change', (e) => {
+            if (e.target.name === 'finalRating') {
+                const rating = e.target.value;
+                finalThankYouMessage.textContent = `¡Gracias por calificarnos con ${rating} estrella${rating !== '1' ? 's' : ''}! Tu opinión es muy valiosa.`;
+                finalThankYouMessage.style.display = 'block';
+            }
+        });
+
+
+        // Initial call to render the products when the page loads
+        document.addEventListener('DOMContentLoaded', renderProductGrid);
     </script>
 </body>
 </html>
-
-            
-</div>
-<section id="ubicacion" class="section location-section">
-    <div class="container">
-        <h2>Nuestra Ubicación</h2>
-        <p class="location-description">
-            ¡Visítanos! Nos encontramos en el corazón de **Tambo**, en la vibrante intersección de **Jr. La Victoria** y **Jr. Moquegua**. ¡Te esperamos con los brazos abiertos y los productos más frescos!
+<section id="ubicacion-tambo" class="section">
+    <div class="container-mapa">
+        <h2 class="titulo-atractivo">¡Encuéntranos Fácilmente! ⏱️ Toca y mira cuánto te falta</h2>
+        
+        <p class="direccion-destacada">
+            Estamos en la **esquina estratégica** de:<br>
+            <span class="calle-principal">Jr. Moquegua</span> y <span class="calle-secundaria">Jr. La Victoria</span>, El Tambo.
         </p>
-
-        <div class="map-container">
+        
+        <div class="mapa-tambo">
             <iframe 
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3902.955572624564!2d-75.1950481263884!3d-11.972322967664687!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x91501d5475ce913d%3A0xc6c4f69f2571b058!2sJr.%20La%20Victoria%20%26%20Jr.%20Moquegua%2C%20El%20Tambo%2012004!5e0!3m2!1ses-419!2spe!4v1699920199042!5m2!1ses-419!2spe" 
-                width="600" 
-                height="450" 
-                style="border:0;" 
+                src="https://www.google.com/maps/search/El%20Tambo%2C%2...
+" 
                 allowfullscreen="" 
-                loading="lazy" 
-                referrerpolicy="no-referrer-when-downgrade">
+                loading="lazy"
+                title="Ubicación exacta del negocio en El Tambo, Huancayo">
             </iframe>
             
-            <a href="https://www.google.com/maps/dir/Concepci%C3%B3n,+Peru/El+Tambo+District,+Peru/data=!4m14!4m13!1m5!1m1!19sChIJkW9w24y4DpERMzdAaQxjeU4!2m2!1d-75.3149796!2d-11.918762099999999!1m5!1m1!19sChIJificp4m9DpERkH1UPol0GyQ!2m2!1d-75.2158171!2d-12.0579479!3e0" target="_blank" class="btn-ruta-modern">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-map-pin"><path d="M12 18.7l-6.7-6.7c-2.4-2.4-2.4-6.3 0-8.7s6.3-2.4 8.7 0l6.7 6.7c2.4 2.4 2.4 6.3 0 8.7s-6.3 2.4-8.7 0z"></path><circle cx="12" cy="12" r="3"></circle></svg>
-                Cómo llegar desde Concepción
+            <a 
+                href="https://maps.app.goo.gl/4ut7s2KVmf1Nht366" 
+                target="_blank" 
+                class="btn-ruta-gps" 
+                title="Calcular ruta y tiempo de llegada en Google Maps">
+                👉 Mostrar Ruta y Tiempo de Llegada
             </a>
         </div>
+        
+        <p class="horario">
+            **🕑 Horario de Atención:** Lunes a Sábado. ¡Te esperamos!
+        </p>
     </div>
 </section>
+<section id="simulacion-captura">
+    <h2>Simulación de Captura de Producto</h2>
+    <p>Haz clic en el botón para simular la activación de un formulario de captura de datos oculto.</p>
 
-  <div id="chatbot-section" class="section">
-    <h2>¿Necesitas Ayuda? Chatea con Nosotros</h2>
-    <p>Haz tus consultas sobre nuestros productos, precios y más. ¡Nuestro asistente te ayudará de inmediato!</p>
-    <div id="chatbot-container">
-        <div id="chat-window">
-            <div id="chat-header">
-                <div class="header-info">
-                    <img src="https://i.ibb.co/L5gqF0T/zero lacto.png" alt="Asistente de Riquelme" class="bot-avatar">
-                    <h3>Asistente de Riquelme</h3>
-                    <span class="status-indicator">En línea</span>
-                </div>
-                <span id="close-chat" class="close-button">&times;</span>
-            </div>
-            <div id="chat-messages">
-                <div class="message bot-message">
-                    <div class="message-content">
-                        Hola, soy el asistente de Riquelme. ¿En qué puedo ayudarte hoy?
-                    </div>
-                </div>
-            </div>
-            <div id="chat-input-container">
-                <input type="text" id="user-input" placeholder="Escribe tu mensaje..." aria-label="Escribe tu mensaje">
-                <button id="send-button" aria-label="Enviar mensaje">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-send"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
-                </button>
-            </div>
-        </div>
-        <button id="open-chat">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-message-circle"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L2 22l4.9-3.8A8.5 8.5 0 0 1 11.5 2a8.5 8.5 0 0 1 8.5 8.5z"></path></svg>
+    <button id="boton-captura" class="btn-principal">
+        Ver Producto Destacado
+    </button>
+    
+    <form id="formulario-oculto" class="form-captura">
+        <label for="campo-simulado">Producto Capturado:</label>
+        <input type="text" id="campo-simulado" name="producto_simulado" 
+               placeholder="Datos capturados aquí..." readonly>
+        
+        <button type="submit" class="btn-enviar-datos">
+            Enviar Datos (Simulación)
         </button>
-    </div>
-</div>  
+    </form>
+
+    <div id="resultado-simulacion" class="mensaje-alerta"></div>
+</section>
+<section id="formulario-contacto">
+    <h2>Formulario de Contacto Real (Simulación)</h2>
+    <p>Por favor, ingrese sus datos para recibir un catálogo de nuestros productos.</p>
+
+    <form id="formulario-datos-personales" class="form-visible">
+        <div class="form-group">
+            <label for="nombre-real">Nombre:</label>
+            <input type="text" id="nombre-real" name="nombre" placeholder="Ingrese su nombre" required>
+        </div>
+        <div class="form-group">
+            <label for="email-real">Correo Electrónico:</label>
+            <input type="email" id="email-real" name="email" placeholder="Ingrese su email" required>
+        </div>
+        
+        <button type="submit" id="btn-submit-real" class="btn-principal">
+            Recibir Catálogo
+        </button>
+    </form>
+    
+    <div id="log-simulacion" class="mensaje-alerta"></div>
+</section>
