@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lácteos Don Riquelme | ¡La Frescura que Anima tus Días!</title>
+    <link rel="stylesheet" href="estilos.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+    <header class="header-fondo-animado">
+        <nav class="main-nav">
+           <img src="assets/images/logo.jpg" alt="Logo" class="logo-nav">
+            
+            <ul class="nav-links">
+                <li><a href="#productos"><i class="fas fa-cheese"></i> Productos</a></li>
+                <li class="dropdown">
+                    <a href="#pedidos"><i class="fas fa-shopping-cart"></i> Compra Rápida <i class="fas fa-caret-down"></i></a>
+                    <div class="dropdown-content">
+                        <a href="#pedidos">Realizar Pedido</a>
+                        <a href="#consultaForm">Enviar Consulta</a>
+                        <a href="#promociones">Ver Ofertas</a>
+                    </div>
+                </li>
+                <li><a href="#multimedia"><i class="fas fa-tv"></i> Videos (YT/TikTok)</a></li>
+                <li><a href="#ubicacion"><i class="fas fa-map-marker-alt"></i> Ubicación (GPS)</a></li>
+                <li><a href="#contactos"><i class="fas fa-headset"></i> Contacto</a></li>
+            </ul>
+        </nav>
+
+        <div class="hero-content">
+            <h1>Lácteos Don Riquelme</h1>
+            <p class="tagline">¡La Tradición Láctea de Huancayo!</p>
+            <a href="#productos" class="btn-primary animated-btn">Descubre la Frescura</a>
+        </div>
+    </header>
+
+    <div class="container">
+        
+        <div id="productos" class="section">
+            <h2><i class="fas fa-award icon"></i> Nuestra Selección Premium y Animada</h2>
+            
+            <div id="productGrid" class="product-grid">
+                </div>
+
+            <div id="productModal" class="modal">
+                <div class="modal-content modal-animated">
+                    <span class="close-button">×</span>
+                    <div class="modal-body">
+                        <img id="modalProductImage" src="" alt="Imagen del producto" class="modal-image-animated">
+                        <div class="modal-info">
+                            <h3 id="modalProductName"></h3>
+                            <p id="modalProductPrice"></p>
+                            <div id="modalProductDescription"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+       <div id="multimedia" class="section carrusel-section">
+    <h2><i class="fas fa-video icon"></i> Vive la Experiencia Don Riquelme</h2>
+    
+    <div class="media-grid">
+        
+        <div class="video-container">
+            <h3>Nuestra Granja (YouTube)</h3>
+            <div class="video-responsive youtube-embed-fix">
+                <iframe 
+                    src="https://www.youtube.com/embed/cvmiDNzeOO8?autoplay=0&controls=1&modestbranding=1" 
+                    title="Video Lácteos Don Riquelme" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen>
+                </iframe>
+            </div>
+        </div>
+        
+        <div class="video-container">
+            <h3>¡Momentos Frescos! (TikTok)</h3>
+            <div class="video-responsive">
+                <iframe 
+                    src="https://www.tiktok.com/embed/7369343362145893664?lang=es-ES" 
+                    frameborder="0" 
+                    allowfullscreen 
+                    scrolling="no" 
+                    allow="encrypted-media; accelerometer; autoplay;">
+                </iframe>
+                <p class="tiktok-note">Nota: Este es el código embed directo de tu video de TikTok.</p>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+        <div id="pedidos" class="section form-section">
+            <h2><i class="fas fa-shipping-fast icon"></i> Realiza tu Pedido / Consulta</h2>
+            
+            <div class="form-grid">
+                <form id="pedidoForm" class="animated-form" autocomplete="off">
+                    <h3>🛒 Pedido Express</h3>
+                    <input type="text" name="nombre" pattern="[A-Za-zñÑáéíóúÁÉÍÓÚ\s]+" title="Solo se permiten letras en el nombre completo." placeholder="Nombre Completo (Solo letras)" required>
+                    <select id="productoPedido" name="producto" required>
+                        <option value="" disabled selected>Selecciona un Producto...</option>
+                    </select>
+                    <input type="number" name="cantidad" min="1" placeholder="Cantidad (Unidades/Litros)" required>
+                    <textarea name="direccion" rows="3" placeholder="Dirección de Envío Completa" required></textarea>
+                    <input type="tel" name="telefono" pattern="[0-9]{9}" title="9 dígitos (ej. 912345678)" placeholder="Teléfono de Contacto" required>
+                    <button type="submit" class="btn-comprar"><i class="fas fa-check-circle"></i> Confirmar Pedido</button>
+                    <div id="pedidoResult" class="result-message"></div>
+                </form>
+
+                <form id="consultaForm" class="animated-form" autocomplete="off">
+                    <h3>💬 Consulta, Empresa o Feedback</h3>
+                    <input type="text" name="nombre" pattern="[A-Za-zñÑáéíóúÁÉÍÓÚ\s]+" title="Solo se permiten letras en el nombre." placeholder="Nombre Completo (Solo letras)" required>
+                    <input type="email" name="email" placeholder="Correo Electrónico" required>
+                    <textarea name="mensaje" rows="4" placeholder="Tu Mensaje o Propuesta Empresarial" required></textarea>
+                    
+                    <div class="rating-container">
+                        <label>Tu Calificación del Servicio:</label>
+                        <div class="rating">
+                            <input type="radio" id="star5" name="calificacion" value="5" required><label for="star5" title="Excelente">★</label>
+                            <input type="radio" id="star4" name="calificacion" value="4"><label for="star4" title="Muy Bueno">★</label>
+                            <input type="radio" id="star3" name="calificacion" value="3"><label for="star3" title="Bueno">★</label>
+                            <input type="radio" id="star2" name="calificacion" value="2"><label for="star2" title="Regular">★</label>
+                            <input type="radio" id="star1" name="calificacion" value="1"><label for="star1" title="Malo">★</label>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn-primary"><i class="fas fa-paper-plane"></i> Enviar Feedback/Consulta</button>
+                    <div id="consultaResult" class="result-message"></div>
+                </form>
+            </div>
+        </div>
+
+        <div id="ubicacion" class="section map-section">
+            <h2><i class="fas fa-compass icon"></i> Encuéntranos en Huancayo, Junín</h2>
+            <p>Ubicación exacta de nuestro centro de operaciones: Jirón Mariscal Cáceres y Jirón Junín, El Tambo.</p>
+            
+            <div class="map-responsive">
+                <iframe 
+                    src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=es&amp;q=-12.0673,-75.2078+(Lacteos%20Riquelme)&amp;t=&amp;z=16&amp;ie=UTF8&amp;iwloc=B&amp;output=embed" 
+                    width="100%" 
+                    height="450" 
+                    style="border:0; border-radius: 10px;" 
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+            <p class="address-detail"><i class="fas fa-house-user"></i> **Ubicación Central:** Jr. Mariscal Cáceres y Jr. Junín, El Tambo, Huancayo.</p>
+        </div>
+    </div>
+    
+    <div id="virtualAssistant" class="assistant-bubble" title="Chatea con nuestro Asistente Virtual">
+        <i class="fas fa-robot"></i>
+    </div>
+
+    <footer id="contactos">
+        <div class="footer-grid">
+            <div class="footer-info">
+                <h4><i class="fas fa-building"></i> Don Riquelme Lácteos</h4>
+                <p>Líderes en frescura en Junín. Comprometidos con el sabor natural y la tradición peruana.</p>
+                <p>Todos los derechos reservados © 2024</p>
+            </div>
+            
+            <div class="footer-links">
+                <h4><i class="fas fa-link"></i> Enlaces Rápidos</h4>
+                <ul>
+                    <li><a href="#productos">Catálogo Completo</a></li>
+                    <li><a href="#pedidos">Hacer un Pedido</a></li>
+                    <li><a href="#">Política de Privacidad</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-contact">
+                <h4><i class="fas fa-phone-alt"></i> Contáctanos</h4>
+                <p><strong>Teléfono:</strong> 968 668 075</p>
+                <p><strong>Email:</strong> josemanuelriquelmeandres1@gmail.com</p>
+            </div>
+            
+            <div class="footer-social">
+                <h4><i class="fas fa-share-alt"></i> Síguenos</h4>
+                <div class="social-links-footer">
+                    <a href="https://wa.me/51968668075" target="_blank" class="whatsapp"><i class="fab fa-whatsapp"></i></a>
+                    <a href="https://www.facebook.com/josemauel.riquelmeandres" target="_blank" class="facebook"><i class="fab fa-facebook"></i></a>
+                    <a href="https://www.instagram.com/josemauel.riquelmeandres" target="_blank" class="instagram"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        /**
+         * LÓGICA DE GESTIÓN DE PRODUCTOS Y VARIEDADES
+         */
+        let products = [
+            {
+                id: 1,
+                name: 'Leche Fresca y UHT',
+                description: 'Leche 100% natural, ideal para toda la familia, con opciones de larga duración.',
+                variants: [
+                    { id: 101, name: 'Leche Fresca 1L', price: 'S/. 5.50', image: 'assets/images/leche fresca.jpg', description: 'Leche fresca pasteurizada, sabor natural, ideal para consumo inmediato.', details: 'Alto contenido de Calcio y Vitamina D. Empaque Ecológico.' },
+                    { id: 102, name: 'Leche Bonle 1L', price: 'S/. 4.80',  image: 'assets/images/bonle.jpg',  description: 'Leche UHT, larga vida, perfecta para la despensa diaria.', details: 'Fortificada con Hierro y Ácido Fólico. Larga duración sin refrigeración.' },
+                    { id: 103, name: 'Leche en Polvo 500g', price: 'S/. 22.00',  image: 'assets/images/leche polvo.jpg', description: 'Práctica presentación en polvo, ideal para repostería o viajes.', details: 'Rendimiento superior, se disuelve fácilmente. Ideal para toda la familia.' },
+                ]
+            },
+            {
+                id: 2,
+                name: 'Quesos Artesanales',
+                description: 'Nuestra especialidad: Quesos de la mejor calidad, madurados con cuidado en la granja.',
+                variants: [
+                    { id: 201, name: 'Queso Fresco (1kg)', price: 'S/. 27.00',   image: 'assets/images/queso fresco.jpg',  description: 'El clásico queso de vaca, suave, bajo en sal y textura inigualable.', details: 'Perfecto para ensaladas, postres y consumo directo. Producto 100% artesanal.' },
+                    { id: 202, name: 'Queso Edam (500g)', price: 'S/. 32.00',  image: 'assets/images/queso edam.jpg', description: 'Queso madurado de sabor semi-intenso y color amarillo.', details: 'Maduración de 3 meses. Textura firme, ideal para gratinar o sandwhiches.' },
+                ]
+            },
+            {
+                id: 3,
+                name: 'Mantequillas y Yogures Premium',
+                description: 'Derivados cremosos, naturales y deliciosos para un desayuno perfecto.',
+                variants: [
+                    { id: 301, name: 'Yogurt Griego Natural (500g)', price: 'S/. 13.00', image: 'assets/images/yogurt griego.jpg', description: 'Alto en proteínas, sin azúcares añadidos, increíblemente cremoso.', details: 'Elaborado con cultivos probióticos activos. Contenido proteico superior.' },
+                    { id: 302, name: 'Mantequilla Artesanal (200g)', price: 'S/. 9.50', image: 'assets/images/mantequilla.jpg', description: 'Mantequilla con sal, hecha con crema fresca. Sabor intenso.', details: 'Textura suave y fácil de untar. 82% de materia grasa. Sin aditivos.' },
+                ]
+            },
+        ];
+
+        // Referencias DOM y Lógica (Mantener las funciones)
+        const productGrid = document.getElementById('productGrid');
+        const productPedidoSelect = document.getElementById('productoPedido');
+        const modal = document.getElementById('productModal');
+
+        function renderProducts() {
+            productGrid.innerHTML = '';
+            products.forEach(product => {
+                const productGroup = document.createElement('div');
+                productGroup.className = 'product-group';
+                productGroup.innerHTML = `<h3 class="product-group-title">${product.name}</h3><p>${product.description}</p>`;
+                
+                const variantContainer = document.createElement('div');
+                variantContainer.className = 'variant-container';
+                
+                product.variants.forEach((variant, index) => {
+                    const card = document.createElement('div');
+                    card.className = 'product-card animated-card';
+                    card.style.animationDelay = `${index * 0.1}s`; 
+                    
+                    card.innerHTML = `
+                        <div class="image-wrapper">
+                            <img src="${variant.image}" alt="${variant.name}" onerror="this.onerror=null;this.src='assets/images/placeholder.png';">
+                        </div>
+                        <div class="product-info">
+                            <h4 class="product-name">${variant.name}</h4>
+                            <span class="product-price">${variant.price}</span>
+                            <p class="product-desc">${variant.description.substring(0, 50)}...</p>
+                            <button class="btn-comprar btn-detail" data-variant-id="${variant.id}"><i class="fas fa-search-plus"></i> Ver Detalles</button>
+                        </div>
+                    `;
+                    variantContainer.appendChild(card);
+                });
+
+                productGroup.appendChild(variantContainer);
+                productGrid.appendChild(productGroup);
+            });
+
+            document.querySelectorAll('.btn-detail').forEach(button => {
+                button.addEventListener('click', showProductModal);
+            });
+        }
+
+        function updateSelects() {
+            productPedidoSelect.innerHTML = '<option value="" disabled selected>Selecciona un Producto...</option>';
+            products.forEach(product => {
+                product.variants.forEach(variant => {
+                    const pedidoOption = document.createElement('option');
+                    pedidoOption.value = `${product.name}: ${variant.name}`;
+                    pedidoOption.textContent = `${product.name}: ${variant.name} (${variant.price})`;
+                    productPedidoSelect.appendChild(pedidoOption);
+                });
+            });
+        }
+
+        function showProductModal(event) {
+            const variantId = parseInt(event.target.dataset.variantId);
+            let selectedVariant = null;
+
+            for (const product of products) {
+                selectedVariant = product.variants.find(v => v.id === variantId);
+                if (selectedVariant) break;
+            }
+
+            if (selectedVariant) {
+                // Rellena el Modal con detalles
+                document.getElementById('modalProductImage').src = selectedVariant.image;
+                document.getElementById('modalProductImage').alt = selectedVariant.name;
+                document.getElementById('modalProductName').textContent = selectedVariant.name;
+                document.getElementById('modalProductPrice').textContent = `Precio: ${selectedVariant.price}`;
+                // Muestra la descripción completa y detalles técnicos
+                document.getElementById('modalProductDescription').innerHTML = 
+                    `<p><strong>Descripción:</strong> ${selectedVariant.description}</p>
+                     <h4>Detalles Técnicos:</h4>
+                     <p>${selectedVariant.details}</p>`;
+                
+                modal.style.display = 'block';
+            }
+        }
+        
+        // Cierre del modal
+        document.querySelector('.close-button').addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+        window.addEventListener('click', (event) => {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+
+        // Simulación de envío de formularios
+        document.getElementById('pedidoForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const resultDiv = document.getElementById('pedidoResult');
+            resultDiv.innerHTML = '✅ ¡Pedido Confirmado! Pronto nos comunicaremos al teléfono que registraste.';
+            resultDiv.style.backgroundColor = '#d4edda';
+            resultDiv.style.color = '#155724';
+            this.reset();
+        });
+
+        document.getElementById('consultaForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const resultDiv = document.getElementById('consultaResult');
+            resultDiv.innerHTML = '⭐ ¡Feedback Recibido! Tu opinión nos ayuda a mejorar. Gracias.';
+            resultDiv.style.backgroundColor = '#fff3cd';
+            resultDiv.style.color = '#856404';
+            this.reset();
+        });
+
+        // Inicialización
+        document.addEventListener('DOMContentLoaded', () => {
+            renderProducts();
+            updateSelects();
+        });
+    </script>
+</body>
+</html>

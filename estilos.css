@@ -1,0 +1,1449 @@
+/*
+|--------------------------------------------------------------------------
+| HOJA DE ESTILOS ULTRA PREMIUM Y ANIMADA - LÁCTEOS DON RIQUELME
+|--------------------------------------------------------------------------
+*/
+
+:root {
+    /* Paleta de Colores Corporativos "Fuerza y Frescura" */
+    --color-leche: #ffffff;             
+    --color-primario: #007bff;          /* Azul Profundo (Marca) */
+    --color-secundario: #ffc107;        /* Amarillo (Acento) */
+    --color-acento: #28a745;            /* Verde Pasto (Éxito, Frescura) */
+    --color-fondo-claro: #f4f6f9;       
+    --color-texto-oscuro: #212529;      
+    
+    /* Variables de Estilo */
+    --sombra-card: 0 10px 30px rgba(0, 0, 0, 0.15);
+    --sombra-modal: 0 20px 40px rgba(0, 0, 0, 0.4);
+    --transicion-intensa: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55); /* Elástica */
+}
+
+/* Base y Tipografía (Mantener) */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+    font-family: 'Lato', sans-serif;
+    background-color: var(--color-fondo-claro);
+    color: var(--color-texto-oscuro);
+    line-height: 1.6;
+    scroll-behavior: smooth;
+}
+.container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
+
+/* =================================================================== */
+/* 2. ENCABEZADO Y ANIMACIONES BASE */
+/* =================================================================== */
+
+.header-fondo-animado {
+    background-image: url('assets/images/fondo-granja-premium.jpg'); 
+    background-size: cover;
+    background-position: center;
+    height: 500px; 
+    position: relative;
+    overflow: hidden;
+    animation: zoomBackground 30s infinite alternate; 
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+/* Animación de Zoom del Fondo */
+@keyframes zoomBackground {
+    0% { background-size: 110%; }
+    100% { background-size: 100%; }
+}
+
+.hero-content h1 {
+    animation: textGlow 1.5s infinite alternate, fadeIn 1.5s ease-out;
+}
+@keyframes textGlow {
+    from { text-shadow: 0 0 5px var(--color-leche), 0 0 10px rgba(0, 0, 0, 0.5); }
+    to { text-shadow: 0 0 15px var(--color-secundario), 0 0 25px rgba(0, 0, 0, 0.8); }
+}
+
+/* Botón Animado del Hero */
+.animated-btn {
+    border: 2px solid var(--color-secundario) !important;
+    animation: pulse 2s infinite;
+}
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(255, 193, 7, 0.7); }
+    70% { box-shadow: 0 0 0 20px rgba(255, 193, 7, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255, 193, 7, 0); }
+}
+
+
+/* =================================================================== */
+/* 3. PRODUCTOS Y MODAL (MÁS ANIMACIÓN) */
+/* =================================================================== */
+
+/* Grid y Tarjetas */
+.product-card {
+    transition: var(--transicion-intensa); /* Aplicar la transición elástica */
+    border: 3px solid transparent;
+}
+
+.product-card:hover {
+    transform: translateY(-10px) scale(1.05); /* Mayor movimiento */
+    box-shadow: var(--sombra-card);
+    border-color: var(--color-acento); /* Borde acentuado */
+}
+
+.product-card:hover .image-wrapper img {
+    transform: scale(1.2) rotate(3deg); /* Mayor zoom y rotación */
+}
+
+/* Modal de Detalles Animado */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.7); /* Fondo más oscuro */
+}
+
+.modal-content {
+    background-color: var(--color-leche);
+    margin: 10% auto;
+    padding: 20px;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 700px;
+    box-shadow: var(--sombra-modal);
+    position: relative;
+    /* Animación de entrada del Modal */
+    animation: modalDrop 0.6s ease-out;
+}
+
+@keyframes modalDrop {
+    from { opacity: 0; transform: translateY(-100px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.modal-body {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+.modal-image-animated {
+    width: 40%;
+    height: auto;
+    border-radius: 10px;
+    border: 3px solid var(--color-primario);
+    transition: transform 0.8s ease;
+}
+.modal-image-animated:hover {
+    transform: rotateY(360deg) scale(1.05); /* Giro 3D al pasar el mouse */
+}
+
+.modal-info h3 { color: var(--color-primario); font-size: 2rem; }
+.modal-info p { margin-bottom: 15px; }
+
+/* =================================================================== */
+/* 4. MULTIMEDIA (YOUTUBE Y TIKTOK) */
+/* =================================================================== */
+.media-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+}
+.video-container {
+    background-color: var(--color-fondo-claro);
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.5s ease;
+}
+.video-container:hover {
+    transform: translateY(-5px);
+}
+
+.video-responsive {
+    position: relative;
+    padding-bottom: 56.25%; 
+    height: 0;
+    overflow: hidden;
+    border-radius: 8px;
+    margin-top: 15px;
+    border: 3px solid var(--color-primario);
+}
+.video-responsive iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+.tiktok-note {
+    font-size: 0.8rem;
+    color: #888;
+    margin-top: 10px;
+}
+
+
+/* =================================================================== */
+/* 5. FORMULARIOS Y GPS */
+/* =================================================================== */
+
+.animated-form {
+    transition: box-shadow 0.3s, transform 0.3s;
+}
+.animated-form:hover {
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    transform: translateY(-3px);
+}
+
+/* Validacion y Mensajes */
+.result-message {
+    padding: 10px;
+    margin-top: 15px;
+    border-radius: 5px;
+    font-weight: 700;
+    text-align: center;
+    animation: slideInUp 0.5s ease-out;
+}
+@keyframes slideInUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Estrellas (Calificación) */
+.rating > label:before {
+    font-size: 2.5em; /* Estrellas más grandes */
+}
+.rating > input:checked ~ label:before,
+.rating > input:checked + label:before {
+    color: var(--color-secundario);
+    text-shadow: 0 0 5px rgba(255, 193, 7, 0.5); /* Efecto de brillo */
+}
+
+/* GPS Mapa */
+.map-section {
+    border-left: 8px solid var(--color-acento);
+}
+
+/* =================================================================== */
+/* 6. RESPONSIVE DESIGN */
+/* =================================================================== */
+
+@media (max-width: 768px) {
+    .media-grid {
+        grid-template-columns: 1fr; /* Apilar videos en móvil */
+    }
+    .modal-body {
+        flex-direction: column;
+        text-align: center;
+    }
+    .modal-image-animated {
+        width: 60%;
+        margin: 0 auto 20px auto;
+    }
+}
+
+@media (max-width: 576px) {
+    .hero-content h1 {
+        font-size: 2rem;
+    }
+}
+/*
+|--------------------------------------------------------------------------
+| HOJA DE ESTILOS PREMIUM - LÁCTEOS DON RIQUELME
+|--------------------------------------------------------------------------
+| Diseño modular, animado y profesional, centrado en la marca 'Granja Fresca'.
+*/
+
+/* =================================================================== */
+/* 1. CONFIGURACIÓN BASE, FUENTES Y VARIABLES */
+/* =================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Lato:wght@300;400;700&display=swap');
+
+:root {
+    /* Paleta de Colores Corporativos "Granja Fresca / Huancayo" */
+    --color-leche: #ffffff;             
+    --color-primario: #007bff;          /* Azul (Marca / Profesional) */
+    --color-secundario: #ffc107;        /* Amarillo Mantequilla (Acento / Energía) */
+    --color-acento: #28a745;            /* Verde Pasto (Frescura / Éxito) */
+    --color-fondo-claro: #f4f6f9;       
+    --color-texto-oscuro: #212529;      
+    
+    /* Variables de Estilo */
+    --sombra-card: 0 10px 25px rgba(0, 0, 0, 0.1);
+    --sombra-nav: 0 4px 10px rgba(0, 0, 0, 0.2);
+    --transicion-rapida: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Lato', sans-serif;
+    background-color: var(--color-fondo-claro);
+    color: var(--color-texto-oscuro);
+    line-height: 1.6;
+    scroll-behavior: smooth;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+/* Animación de entrada general */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* =================================================================== */
+/* 2. ENCABEZADO Y SÚPER MENÚ ANIMADO */
+/* =================================================================== */
+
+.header-fondo-animado {
+    /* Reemplaza con una URL real o ruta a una imagen de granja */
+    background-image: url('assets/images/fondo-granja-premium.jpg'); 
+    background-size: cover;
+    background-position: center;
+    height: 500px; 
+    position: relative;
+    overflow: hidden;
+    animation: zoomBackground 30s infinite alternate; 
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding-top: 20px;
+}
+
+.header-fondo-animado::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.2)); 
+    z-index: 1;
+}
+
+/* Contenido del Hero (Título) */
+.hero-content {
+    text-align: center;
+    z-index: 2;
+    padding-top: 80px;
+}
+.hero-content h1 {
+    font-size: 4rem;
+    font-weight: 800;
+    color: var(--color-leche);
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
+    animation: fadeIn 1.5s ease-out;
+}
+.tagline {
+    font-size: 1.5rem;
+    color: var(--color-secundario);
+    font-style: italic;
+    margin-bottom: 30px;
+    animation: fadeIn 2s ease-out;
+}
+
+/* --- NAVEGACIÓN (NAV) Y SÚPER MENÚ --- */
+.main-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 10px 40px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: var(--sombra-nav);
+    width: 100%;
+    margin-top: -20px; /* Ajuste para superponer el header */
+}
+
+.logo-nav {
+    height: 40px; 
+    border-radius: 5px;
+    transition: transform 0.3s;
+}
+.logo-nav:hover {
+    transform: scale(1.1);
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+}
+.nav-links > li {
+    margin-left: 20px;
+    position: relative;
+}
+.nav-links a {
+    text-decoration: none;
+    color: var(--color-leche);
+    padding: 15px 10px;
+    font-weight: 600;
+    display: block;
+    transition: var(--transicion-rapida);
+    border-radius: 4px;
+}
+
+.nav-links a:hover {
+    color: var(--color-secundario);
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Dropdown / Súper Menú */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: var(--color-primario);
+    min-width: 200px;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.4);
+    z-index: 1001;
+    border-top: 3px solid var(--color-acento);
+    animation: slideDown 0.3s ease-out;
+}
+.dropdown-content a {
+    color: var(--color-leche);
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+}
+.dropdown-content a:hover {
+    background-color: #0056b3;
+}
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* =================================================================== */
+/* 3. MÓDULOS DE CONTENIDO Y PRODUCTOS ANIMADOS */
+/* =================================================================== */
+
+.section {
+    background-color: var(--color-leche);
+    padding: 40px;
+    margin-bottom: 30px;
+    border-radius: 15px;
+    box-shadow: var(--sombra-card);
+    animation: fadeIn 1s ease-out;
+}
+
+.section h2 {
+    font-size: 2.5rem;
+    color: var(--color-primario);
+    border-bottom: 4px solid var(--color-secundario);
+    padding-bottom: 15px;
+    margin-bottom: 40px;
+    font-weight: 700;
+}
+
+/* --- Grid de Productos --- */
+.product-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+.product-group-title {
+    font-size: 2rem;
+    color: var(--color-texto-oscuro);
+    border-left: 5px solid var(--color-acento);
+    padding-left: 15px;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+.variant-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+}
+
+.product-card {
+    background-color: var(--color-fondo-claro);
+    border-radius: 12px;
+    overflow: hidden;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: var(--transicion-rapida);
+    border: 1px solid #ddd;
+}
+
+/* Animación de la tarjeta (Subida y Sombra) */
+.animated-card {
+    opacity: 0; /* Inicialmente invisible */
+    transform: translateY(20px);
+    animation: cardLoad 0.5s ease-out forwards;
+}
+
+@keyframes cardLoad {
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.product-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+.image-wrapper {
+    height: 200px;
+    overflow: hidden;
+    background-color: var(--color-leche);
+    border-bottom: 1px solid #eee;
+}
+
+.image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.product-card:hover .image-wrapper img {
+    transform: scale(1.15) rotate(1deg); /* Animación de zoom y rotación sutil */
+}
+
+/* --- Botones de Productos --- */
+.btn-primary {
+    background-color: var(--color-primario);
+    color: var(--color-leche);
+    padding: 12px 25px;
+    border: none;
+    border-radius: 6px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background-color 0.3s ease, transform 0.3s;
+    text-decoration: none; /* Para el botón del hero */
+    display: inline-block;
+}
+.btn-primary:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+.btn-comprar.btn-detail {
+    background-color: var(--color-acento);
+    color: var(--color-leche);
+    width: 90%;
+    padding: 10px 0;
+    margin-bottom: 15px;
+}
+.btn-comprar.btn-detail:hover {
+    background-color: #1e8d38;
+}
+
+/* =================================================================== */
+/* 4. SECCIONES AVANZADAS: MAPA Y FORMULARIOS */
+/* =================================================================== */
+
+/* Mapa/GPS */
+.map-responsive {
+    position: relative;
+    padding-bottom: 56.25%; /* Relación de aspecto 16:9 */
+    height: 0;
+    overflow: hidden;
+    margin-top: 20px;
+}
+.map-responsive iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+.address-detail {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--color-texto-oscuro);
+    margin-top: 20px;
+    text-align: center;
+}
+.address-detail i {
+    color: var(--color-primario);
+    margin-right: 10px;
+}
+
+/* Formularios */
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+}
+
+.animated-form {
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    background-color: var(--color-fondo-claro);
+    border-top: 5px solid var(--color-primario);
+    animation: fadeIn 1s ease-out;
+}
+.animated-form h3 {
+    border-bottom: 2px dashed #ccc;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    color: var(--color-primario);
+}
+.animated-form input, .animated-form textarea, .animated-form select {
+    margin-bottom: 15px;
+}
+
+/* Estrellas (Rating) */
+.rating-container {
+    margin: 20px 0;
+}
+.rating {
+    unicode-bidi: bidi-override;
+    direction: rtl;
+    text-align: left;
+}
+.rating > input { display: none; }
+.rating > label:before {
+    content: "\2605";
+    font-size: 1.8em;
+    color: #ccc;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+.rating > input:checked ~ label:before,
+.rating > input:checked + label:before {
+    color: var(--color-secundario);
+}
+.rating > label:hover:before,
+.rating > label:hover ~ label:before {
+    color: var(--color-secundario);
+}
+
+/* =================================================================== */
+/* 5. ASISTENTE VIRTUAL (Flotante) */
+/* =================================================================== */
+
+.assistant-bubble {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    background-color: var(--color-acento);
+    color: var(--color-leche);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    z-index: 1100;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    animation: bounce 2s infinite; /* Animación de llamada de atención */
+}
+
+.assistant-bubble:hover {
+    transform: scale(1.1);
+    background-color: #1e8d38;
+    animation: none;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-10px); }
+    60% { transform: translateY(-5px); }
+}
+
+/* =================================================================== */
+/* 6. PIE DE PÁGINA COMPLETO */
+/* =================================================================== */
+
+footer {
+    background-color: var(--color-texto-oscuro);
+    color: #adb5bd;
+    padding: 50px 0 20px 0;
+    margin-top: 50px;
+    border-top: 8px solid var(--color-secundario);
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+footer h4 {
+    color: var(--color-leche);
+    margin-bottom: 20px;
+    font-weight: 700;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 5px;
+}
+
+footer ul {
+    list-style: none;
+}
+footer ul li {
+    margin-bottom: 8px;
+}
+footer a {
+    color: #adb5bd;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+footer a:hover {
+    color: var(--color-secundario);
+}
+
+.social-links-footer a {
+    font-size: 1.5rem;
+    margin-right: 15px;
+}
+.social-links-footer .whatsapp { color: #25d366; }
+.social-links-footer .facebook { color: #1877f2; }
+.social-links-footer .instagram { color: #e4405f; }
+
+/* =================================================================== */
+/* 7. RESPONSIVE DESIGN (Ajustes para móviles) */
+/* =================================================================== */
+
+@media (max-width: 992px) {
+    .main-nav {
+        padding: 10px 20px;
+    }
+    .nav-links {
+        display: none; /* Ocultar el menú completo en móvil y usar un menú hamburguesa (no implementado en este código simple) */
+    }
+    .hero-content h1 {
+        font-size: 2.5rem;
+    }
+    .tagline {
+        font-size: 1.2rem;
+    }
+    .footer-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .header-fondo-animado {
+        height: 350px;
+    }
+    .form-grid {
+        grid-template-columns: 1fr; /* Apilar formularios */
+        gap: 20px;
+    }
+    .footer-grid {
+        grid-template-columns: 1fr; /* Apilar footer */
+        text-align: center;
+    }
+    .footer-links ul {
+        padding-left: 0;
+    }
+}
+/*
+|--------------------------------------------------------------------------
+| HOJA DE ESTILOS ULTRA PREMIUM Y ANIMADA - LÁCTEOS DON RIQUELME
+|--------------------------------------------------------------------------
+| Secciones modificadas: Encabezado (Logo, Fondo), Footer, y Tarjetas.
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Lato:wght@300;400;700&display=swap');
+
+:root {
+    /* Paleta de Colores Corporativos "Fuerza y Frescura" */
+    --color-leche: #ffffff;             
+    --color-primario: #0257B4;          /* Azul Profundo, más intenso */
+    --color-secundario: #FFD23F;        /* Amarillo Mantequilla, más brillante */
+    --color-acento: #3AA34B;            /* Verde Pasto, más vivo */
+    --color-fondo-claro: #f4f6f9;       
+    --color-texto-oscuro: #212529;      
+    
+    /* Variables de Estilo */
+    --sombra-card: 0 10px 30px rgba(0, 0, 0, 0.2); /* Sombra más fuerte */
+    --sombra-nav: 0 4px 15px rgba(0, 0, 0, 0.3);
+    --transicion-intensa: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55); 
+}
+
+/* Base y Tipografía (Mantener) */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+    font-family: 'Lato', sans-serif;
+    background-color: var(--color-fondo-claro);
+    color: var(--color-texto-oscuro);
+    line-height: 1.6;
+    scroll-behavior: smooth;
+}
+.container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
+
+/* Animación de entrada general */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* =================================================================== */
+/* 2. ENCABEZADO Y FONDOS LLAMATIVOS */
+/* =================================================================== */
+
+.header-fondo-animado {
+    /* RUTA DEL FONDO PRINCIPAL */
+    /* Asegúrate de que 'assets/images/fondo-granja-premium.jpg' sea una imagen de alta calidad */
+    background-image: url('assets/images/fondo-granja-premium.jpg'); 
+    background-size: cover;
+    background-position: center 20%;
+    height: 550px; /* Un poco más alto */
+    position: relative;
+    overflow: hidden;
+    animation: zoomBackground 30s infinite alternate; 
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+/* Filtro de Oscurecimiento y Saturación para el Fondo */
+.header-fondo-animado::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    /* Degradado más rico y con filtro de saturación */
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.3)); 
+    backdrop-filter: saturate(1.2); /* Aumenta la intensidad del color */
+    z-index: 1;
+}
+
+@keyframes zoomBackground {
+    0% { background-size: 110%; }
+    100% { background-size: 100%; }
+}
+
+/* Contenido del Hero (Título) */
+.hero-content {
+    text-align: center;
+    z-index: 2;
+    padding-top: 100px;
+}
+.hero-content h1 {
+    font-size: 4.5rem;
+    font-weight: 800;
+    color: var(--color-leche);
+    text-shadow: 0 8px 15px rgba(0, 0, 0, 0.9); /* Sombra más marcada */
+    animation: textGlow 1.5s infinite alternate, fadeIn 1.5s ease-out;
+}
+.tagline {
+    font-size: 1.6rem;
+    color: var(--color-secundario);
+    font-weight: 600;
+    margin-bottom: 40px;
+}
+
+/* --- LOGOTIPO EN LA NAVEGACIÓN --- */
+.main-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.85); /* Fondo más opaco */
+    padding: 10px 40px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: var(--sombra-nav);
+    width: 100%;
+}
+
+.logo-nav {
+    /* RUTA DEL LOGOTIPO */
+    height: 50px; /* Logotipo un poco más grande */
+    padding: 5px;
+    background-color: var(--color-leche); /* Fondo blanco alrededor del logo para que resalte */
+    border-radius: 8px;
+    transition: transform 0.5s ease-in-out;
+}
+.logo-nav:hover {
+    transform: rotate(-5deg) scale(1.1); /* Animación de rotación y escala */
+}
+
+/* =================================================================== */
+/* 3. PIE DE PÁGINA CON FONDO DE TEXTURA */
+/* =================================================================== */
+
+footer {
+    /* FONDO DE TEXTURA OSCURA (Simulando cuero o tela de saco) */
+    /* Puedes reemplazar 'assets/images/dark-texture.jpg' con una textura oscura sutil */
+    background-image: url('assets/images/dark-texture.jpg');
+    background-color: #1a1a1a;
+    background-size: cover;
+    color: #f0f0f0;
+    padding: 50px 0 20px 0;
+    margin-top: 50px;
+    border-top: 8px solid var(--color-secundario);
+    box-shadow: 0 -10px 20px rgba(0, 0, 0, 0.5); /* Sombra hacia arriba */
+}
+
+footer h4 {
+    color: var(--color-secundario); /* Títulos en amarillo */
+    font-weight: 700;
+}
+
+/* =================================================================== */
+/* 4. TARJETAS DE PRODUCTO (ANIMACIÓN MÁS INTENSA) */
+/* =================================================================== */
+
+.product-card {
+    transition: var(--transicion-intensa); 
+    border: 3px solid transparent;
+}
+
+.product-card:hover {
+    /* La elevación y la sombra se intensifican al pasar el mouse */
+    transform: translateY(-12px) scale(1.06); 
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+    border-color: var(--color-primario);
+}
+
+/* Secciones (Mantener el estilo de caja elevada) */
+.section {
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1); 
+    transition: transform 0.4s ease;
+}
+.section:hover {
+    transform: translateY(-5px);
+}
+
+/* Resto de Estilos (Mantenidos de la versión anterior para coherencia) */
+/* ... (El resto del CSS se mantiene igual) ... */
+/*
+|--------------------------------------------------------------------------
+| HOJA DE ESTILOS ULTRA PREMIUM Y ANIMADA - LÁCTEOS DON RIQUELME
+|--------------------------------------------------------------------------
+| Secciones modificadas: BODY (Fondo general), HEADER (Fondo principal) y FOOTER.
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Lato:wght@300;400;700&display=swap');
+
+:root {
+    /* Paleta de Colores Corporativos "Fuerza y Frescura" */
+    --color-leche: #ffffff;             
+    --color-primario: #0257B4;          /* Azul Profundo, más intenso */
+    --color-secundario: #FFD23F;        /* Amarillo Mantequilla, más brillante */
+    --color-acento: #3AA34B;            /* Verde Pasto, más vivo */
+    --color-fondo-claro: #f4f6f9;       
+    --color-texto-oscuro: #212529;      
+    
+    /* Variables de Estilo */
+    --sombra-card: 0 10px 30px rgba(0, 0, 0, 0.2); 
+    --sombra-nav: 0 4px 15px rgba(0, 0, 0, 0.3);
+    --transicion-intensa: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55); 
+}
+
+/* Base y Tipografía */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    font-family: 'Lato', sans-serif;
+    color: var(--color-texto-oscuro);
+    line-height: 1.6;
+    scroll-behavior: smooth;
+
+    /* NUEVO: FONDO GENERAL DE TEXTURA DE VACA (sutil) */
+    background-image: url('assets/images/fondo-vaca-patron.png'); 
+    background-color: var(--color-fondo-claro);
+    background-repeat: repeat;
+    background-size: 100px; /* Tamaño pequeño para que actúe como patrón */
+}
+
+.container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
+
+/* Animación de entrada general */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* =================================================================== */
+/* 2. ENCABEZADO Y FONDOS LLAMATIVOS */
+/* =================================================================== */
+
+.header-fondo-animado {
+    /* RUTA DEL FONDO PRINCIPAL */
+    background-image: url('assets/images/fondo.jpg'); 
+    background-size: cover;
+    background-position: center 20%;
+    height: 550px; 
+    position: relative;
+    overflow: hidden;
+    animation: zoomBackground 30s infinite alternate; 
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+/* Filtro de Oscurecimiento y Saturación para el Fondo */
+.header-fondo-animado::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    /* Degradado más rico y con filtro de saturación */
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.3)); 
+    backdrop-filter: saturate(1.2); 
+    z-index: 1;
+}
+
+@keyframes zoomBackground {
+    0% { background-size: 110%; }
+    100% { background-size: 100%; }
+}
+
+/* Contenido del Hero (Título) */
+.hero-content {
+    text-align: center;
+    z-index: 2;
+    padding-top: 100px;
+}
+.hero-content h1 {
+    font-size: 4.5rem;
+    font-weight: 800;
+    color: var(--color-leche);
+    text-shadow: 0 8px 15px rgba(0, 0, 0, 0.9); 
+    animation: textGlow 1.5s infinite alternate, fadeIn 1.5s ease-out;
+}
+@keyframes textGlow {
+    from { text-shadow: 0 0 5px var(--color-leche), 0 0 10px rgba(0, 0, 0, 0.5); }
+    to { text-shadow: 0 0 15px var(--color-secundario), 0 0 25px rgba(0, 0, 0, 0.8); }
+}
+
+/* Botón Animado del Hero */
+.animated-btn {
+    border: 2px solid var(--color-secundario) !important;
+    animation: pulse 2s infinite;
+}
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(255, 193, 7, 0.7); }
+    70% { box-shadow: 0 0 0 20px rgba(255, 193, 7, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255, 193, 7, 0); }
+}
+
+/* --- LOGOTIPO EN LA NAVEGACIÓN --- */
+.main-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.85); 
+    padding: 10px 40px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: var(--sombra-nav);
+    width: 100%;
+}
+
+.logo-nav {
+    /* RUTA DEL LOGOTIPO */
+    height: 50px; 
+    padding: 5px;
+    background-color: var(--color-leche); 
+    border-radius: 8px;
+    transition: transform 0.5s ease-in-out;
+}
+.logo-nav:hover {
+    transform: rotate(-5deg) scale(1.1); 
+}
+
+/* =================================================================== */
+/* 3. SECCIONES DE CONTENIDO CON FONDO DE LECHE */
+/* =================================================================== */
+
+.section {
+    /* NUEVO: FONDO DE LECHE SUTIL EN EL CONTENIDO */
+    background-image: url('assets/images/fondo-leche-sutil.jpg');
+    background-size: cover;
+    background-position: center;
+    background-color: var(--color-leche); /* Fondo de respaldo */
+    padding: 40px;
+    margin-bottom: 30px;
+    border-radius: 15px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1); 
+    transition: transform 0.4s ease;
+}
+.section:hover {
+    transform: translateY(-5px);
+}
+
+/* =================================================================== */
+/* 4. PIE DE PÁGINA CON FONDO DE TEXTURA */
+/* =================================================================== */
+
+footer {
+    /* FONDO DE TEXTURA OSCURA (Simulando cuero o tela de saco) */
+    background-image: url('assets/images/dark-texture.jpg');
+    background-color: #1a1a1a;
+    background-size: cover;
+    color: #f0f0f0;
+    padding: 50px 0 20px 0;
+    margin-top: 50px;
+    border-top: 8px solid var(--color-secundario);
+    box-shadow: 0 -10px 20px rgba(0, 0, 0, 0.5); 
+}
+
+footer h4 {
+    color: var(--color-secundario); 
+    font-weight: 700;
+}
+
+
+/* --- Tarjetas de Producto, Modal, Multimedia y Responsive (Mantenidos) --- */
+
+.product-card {
+    transition: var(--transicion-intensa); 
+    border: 3px solid transparent;
+}
+
+.product-card:hover {
+    transform: translateY(-12px) scale(1.06); 
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+    border-color: var(--color-primario);
+}
+
+.modal {
+    /* ... estilos del modal ... */
+}
+
+.modal-content {
+    /* ... animación del modal ... */
+}
+
+.modal-image-animated {
+    /* ... animación de la imagen del modal ... */
+}
+
+/* ... Resto de estilos (Media Grid, Formularios, GPS, Asistente) ... */
+/* ESTILOS PARA LA RESPONSIVIDAD DE VIDEOS YOUTUBE/TIKTOK */
+
+.video-container {
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: var(--sombra-card);
+    margin-bottom: 20px;
+}
+
+.video-responsive {
+    position: relative;
+    padding-bottom: 56.25%; /* Relación de aspecto 16:9 */
+    height: 0;
+    overflow: hidden;
+    max-width: 100%;
+}
+
+.video-responsive iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 8px; /* Bordes redondeados para el reproductor */
+}
+
+/* Estilo para la grilla de dos videos */
+.media-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 20px;
+}
+/* =================================================================== */
+/* 5. ESTILOS PROFESIONALES Y LLAMATIVOS PARA EL FORMULARIO */
+/* =================================================================== */
+
+/* Contenedor principal del Formulario */
+.contact-section {
+    padding: 50px 0;
+    background-color: var(--color-leche); /* Fondo blanco limpio */
+    animation: fadeIn 1.2s ease-out;
+}
+
+.contact-header {
+    text-align: center;
+    color: var(--color-primario);
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 30px;
+}
+
+.contact-header::after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 5px;
+    background-color: var(--color-secundario); /* Línea amarilla vibrante */
+    margin: 10px auto 0;
+    border-radius: 5px;
+}
+
+/* Contenedor Flex para las dos columnas (Pedido y Consulta) */
+.form-container {
+    display: flex;
+    gap: 40px;
+    padding: 20px;
+    max-width: 1000px; /* Ancho máximo para que no se estire demasiado */
+    margin: 0 auto;
+}
+
+/* Estilo Base para las Tarjetas de Formulario */
+.form-card {
+    flex: 1;
+    padding: 30px;
+    border-radius: 15px;
+    background-color: var(--color-fondo-claro);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15); /* Sombra suave y profesional */
+    border-top: 5px solid; /* Se define el color por tipo de tarjeta */
+    transition: var(--transicion-intensa);
+}
+
+/* Colores Específicos para cada Tarjeta */
+.form-card.pedido-express {
+    border-top-color: var(--color-primario); /* Azul para Pedidos (Fuerza) */
+}
+
+.form-card.consulta-feedback {
+    border-top-color: var(--color-secundario); /* Amarillo para Consultas (Atención) */
+}
+
+/* Animación de elevación al pasar el mouse */
+.form-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+}
+
+/* Títulos de las tarjetas */
+.form-card h4 {
+    color: var(--color-texto-oscuro);
+    font-size: 1.4rem;
+    font-weight: 600;
+    border-bottom: 2px dashed rgba(0, 0, 0, 0.1);
+    padding-bottom: 15px;
+    margin-bottom: 25px;
+}
+
+/* Estilos de los Inputs (Entradas de texto y select) */
+.form-card input:not([type="submit"]),
+.form-card select,
+.form-card textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background-color: var(--color-leche);
+}
+
+.form-card input:focus,
+.form-card select:focus,
+.form-card textarea:focus {
+    border-color: var(--color-acento); /* Borde verde al enfocar */
+    box-shadow: 0 0 0 3px rgba(58, 163, 75, 0.3);
+    outline: none;
+}
+
+/* Botones de Envío */
+.btn-submit {
+    display: block;
+    width: 100%;
+    padding: 15px 20px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: var(--transicion-intensa);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Estilo del botón de Pedido (Azul) */
+.btn-pedido {
+    background-color: var(--color-primario);
+    color: var(--color-leche);
+}
+
+.btn-pedido:hover {
+    background-color: #034493;
+    transform: scale(1.02);
+}
+
+/* Estilo del botón de Feedback (Azul más vibrante) */
+.btn-feedback {
+    background-color: var(--color-primario);
+    color: var(--color-leche);
+}
+
+.btn-feedback:hover {
+    background-color: #034493;
+    transform: scale(1.02);
+}
+
+/* Estrellas de Calificación (Unicornios o Iconografía) */
+.rating-stars {
+    margin: 15px 0 25px;
+    font-size: 1.8rem;
+    color: #ffd700; /* Dorado para las estrellas */
+    cursor: pointer;
+}
+
+/* Espacio extra entre los inputs que están en la misma línea */
+.inline-group {
+    display: flex;
+    gap: 15px;
+}
+.inline-group input {
+    flex: 1;
+}
+
+
+/* --- Responsive para dispositivos móviles --- */
+@media (max-width: 768px) {
+    .form-container {
+        flex-direction: column;
+        gap: 20px;
+        padding: 0 10px;
+    }
+}
+/* =================================================================== */
+/* 5. ESTILOS PROFESIONALES Y LLAMATIVOS PARA EL FORMULARIO */
+/* =================================================================== */
+
+/* Estilo para la grilla de dos columnas (form-grid) */
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 40px;
+    padding: 30px;
+    max-width: 1100px;
+    margin: 20px auto;
+}
+
+/* Estilo para cada formulario (animated-form) */
+.animated-form {
+    padding: 30px;
+    border-radius: 15px;
+    background-color: var(--color-fondo-claro); /* Fondo suave */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    border-top: 5px solid var(--color-primario); /* Línea azul profesional */
+    transition: all 0.3s ease;
+}
+
+.animated-form:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+}
+
+.animated-form h3 {
+    font-size: 1.6rem;
+    color: var(--color-primario);
+    border-bottom: 2px dashed rgba(0, 0, 0, 0.1);
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+/* Estilo de Inputs, Select y Textarea */
+.animated-form input:not([type="radio"]),
+.animated-form select,
+.animated-form textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.animated-form input:focus,
+.animated-form select:focus,
+.animated-form textarea:focus {
+    border-color: var(--color-acento);
+    box-shadow: 0 0 0 3px rgba(58, 163, 75, 0.3);
+    outline: none;
+}
+
+/* Botones */
+.btn-comprar, .btn-primary {
+    display: block;
+    width: 100%;
+    padding: 15px 20px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    background-color: var(--color-primario);
+    color: var(--color-leche);
+}
+
+.btn-comprar:hover, .btn-primary:hover {
+    background-color: #034493;
+    transform: scale(1.01);
+}
+
+/* --- ESTILOS DE CALIFICACIÓN (ESTRELLAS) --- */
+.rating-container {
+    margin-bottom: 20px;
+}
+.rating {
+    display: flex;
+    flex-direction: row-reverse; /* Esto invierte el orden para que la lógica funcione */
+    justify-content: flex-end;
+}
+.rating input {
+    display: none; /* Oculta los botones de radio nativos */
+}
+.rating label {
+    font-size: 2.2rem;
+    color: #ccc; /* Estrellas grises por defecto */
+    cursor: pointer;
+    transition: color 0.3s ease;
+    padding: 0 3px;
+}
+.rating label:hover,
+.rating label:hover ~ label {
+    color: #ffc107; /* Dorado al pasar el mouse */
+}
+.rating input:checked ~ label {
+    color: #ffd700; /* Dorado al seleccionar */
+}
+
+/* --- Responsive --- */
+@media (max-width: 768px) {
+    .form-grid {
+        grid-template-columns: 1fr;
+        padding: 10px;
+    }
+}
